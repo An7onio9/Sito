@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antonio Costantino | Progetti</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/progetti.css">
+</head>
+
+<body>
+  <!-- Menu -->
+  <input type="checkbox" id="menuToggle" class="menuToggle">
+  <label for="menuToggle" class="menu">
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+  </label>
+
+  <nav class="options">
+     <div class="menu-links"></div>
+     <a href="index.html">Home</a>
+     <a href="chi sono.html">Chi sono</a>
+     <a href="foto.html" >Foto</a>
+     <a href="progetti.html" class="active">Progetti</a>
+
+    <div class="menu-contacts">
+      <span class="contacts-title">Contatti</span>
+      <a href="mailto:acostantino2005@gmail.com" target="_blank" class="social-item">
+      <div class="icon-box"><i class="far fa-envelope"> Email</i></div>
+        </a> 
+      <a href="https://www.linkedin.com/in/antonio-costantino-6b9562305/" target="_blank" class="social-item">
+        <div class="icon-box"><i class="fab fa-linkedin-in"> LinkedIn</i></div>
+    </a>
+    <a href="https://www.instagram.com/antonio_costantino05/" target="_blank" class="social-item">
+    <div class="icon-box"><i class="fab fa-instagram"> Instagram</i></div></a>
+   </div>
+  </nav>
+
+    <div class="copyright">&copy; 2026 | Antonio Costantino</div>
+
+      <script>
+    window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    
+    // Dopo 1 secondo (quando l'animazione di entrata è finita)...
+    setTimeout(() => {
+      // ...ridiamo al contenitore la velocità scattante del menu!
+      document.getElementById('page-content').style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+    }, 1000); 
+  });
+ </script>
+ 
+</body>
+</html>

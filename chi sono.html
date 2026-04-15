@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antonio Costantino | Chi Sono</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chi sono.css">
+</head>
+
+<body>
+  <!-- Menu -->
+  <input type="checkbox" id="menuToggle" class="menuToggle">
+  <label for="menuToggle" class="menu">
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+  </label>
+
+  <nav class="options">
+    <div class="menu-links"></div>
+    <a href="index.html">Home</a>
+    <a href="chi sono.html" class="active">Chi sono</a>
+    <a href="foto.html">Foto</a>
+    <a href="progetti.html">Progetti</a>
+
+    <div class="menu-contacts">
+      <span class="contacts-title">Contatti</span>
+      <a href="mailto:acostantino2005@gmail.com" target="_blank" class="social-item">
+      <div class="icon-box"><i class="far fa-envelope"> Email</i></div>
+        </a> 
+      <a href="https://www.linkedin.com/in/antonio-costantino-6b9562305/" target="_blank" class="social-item">
+        <div class="icon-box"><i class="fab fa-linkedin-in"> LinkedIn</i></div>
+    </a>
+    <a href="https://www.instagram.com/antonio_costantino05/" target="_blank" class="social-item">
+    <div class="icon-box"><i class="fab fa-instagram"> Instagram</i></div></a>
+   </div>
+  </nav>
+
+ <div id="page-content">
+    <!-- Titolo pagina-->
+    <section class="main-title">
+      <h1>Chi sono?</h1>
+    </section>
+
+    <!-- Foto e scritta -->
+    <section class="io">
+      <img src="png/iopersito.jpg" alt="Foto di Antonio" class="io-img">
+     <div class="io-text">
+       <p>
+        <span class="nome">Antonio Costantino</span><br>
+        Appassionato di tecnologia, innovazione, droni e musica.<br>
+        Sempre alla ricerca di nuove sfide e opportunità di crescita.<br>
+       </p>
+     </div>
+   </section>
+
+   <section class="boxes">
+      <div class="box fade-in" style="--bg:#4f8cff;">
+        <div class="icon">🎓</div>
+        <h2>Diploma</h2>
+        <p>Istituto Tecnico Economico Perito in <span class="bold">Sistemi Informativi Aziendali</span></p>
+     </div>
+
+      <div class="box fade-in" style="--bg:#ff6f61;">
+        <div class="icon">🏫</div>
+        <h2>Università</h2>
+        <p>Studente di <span class="bold">Informatica</span> presso <br>
+        <a href="https://www.univaq.it/" target="_blank" class="universita"><span class="bold">Università degli Studi dell’Aquila</span></a></p> 
+     </div>
+
+      <div class="box fade-in" style="--bg:#fbbc05;">
+        <div class="icon">💻</div>
+        <h2>Certificazioni</h2>
+        <p><span class="bold">Certificazioni</span> informatiche e linguistiche</p>
+     </div>
+
+      <div class="box fade-in" style="--bg:#34a853;">
+        <div class="icon">🛩️</div>
+        <h2>Pilota</h2>
+        <p><span class="bold">Pilota certificato UAS</span> categoria open A1-A3</p>
+      </div>
+    </section>
+      <div class="copyright">&copy; 2026 | Antonio Costantino</div>
+ </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+    // 1. Attiva l'ingresso soft della pagina
+    document.body.classList.add('loaded');
+
+    // 2. Gestione dei faders (il tuo codice esistente per lo scroll)
+    const faders = document.querySelectorAll('.fade-in');
+    const options = { threshold: 0.05, rootMargin: "0px 0px -20px 0px"};
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+    faders.forEach(fader => observer.observe(fader)); 
+
+    // 3. Close menu on outside click
+    const menuToggle = document.getElementById('menuToggle');
+    const menuButton = document.querySelector('.menu'); // The label acting as the button
+    const optionsMenu = document.querySelector('.options'); // The actual menu panel
+
+    document.addEventListener('click', function(event) {
+      // If the menu is open
+      if (menuToggle.checked) {
+        const target = event.target;
+
+        // Check if the click was outside the menu button AND outside the menu panel
+        // Also ensure the click wasn't directly on the hidden checkbox itself (though unlikely)
+        if (!optionsMenu.contains(target) && !menuButton.contains(target) && target !== menuToggle) {
+          menuToggle.checked = false; // Close the menu
+        }
+      }
+    });
+    });
+ </script>
+</body>
+</html>

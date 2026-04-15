@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antonio Costantino | Foto</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/foto.css">
+</head>
+
+<body>
+  <!-- Menu --------------------------------------->
+  <input type="checkbox" id="menuToggle" class="menuToggle">
+  <label for="menuToggle" class="menu">
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+  </label>
+
+  <nav class="options">
+    <div class="menu-links"></div>
+    <a href="index.html">Home</a>
+    <a href="chi sono.html">Chi sono</a>
+    <a href="foto.html" class="active">Foto</a>
+    <a href="progetti.html">Progetti</a>
+
+    <div class="menu-contacts">
+      <span class="contacts-title">Contatti</span>
+      <a href="mailto:acostantino2005@gmail.com" target="_blank" class="social-item">
+      <div class="icon-box"><i class="far fa-envelope"> Email</i></div></a> 
+      <a href="https://www.linkedin.com/in/antonio-costantino-6b9562305/" target="_blank" class="social-item">
+        <div class="icon-box"><i class="fab fa-linkedin-in"> LinkedIn</i></div>
+    </a>
+    <a href="https://www.instagram.com/antonio_costantino05/" target="_blank" class="social-item">
+    <div class="icon-box"><i class="fab fa-instagram"> Instagram</i></div></a>
+   </div>
+ </nav>
+
+  <div id="page-content">
+    
+  <section class="hero-banner">
+  <div class="hero-overlay"></div>
+  <img src="png/gissi.jpg" alt="Drone View Gissi" class="hero-img">
+  <div class="hero-text">
+    <h1>Foto & Video</h1>
+    <p>La Terra vista da un'altra prospettiva</p>
+  </div>
+</section>
+
+    <section class="page-intro">
+    <div class="intro-content">
+      <p>
+      In questa sezione raccolgo i miei scatti e video meglio riusciti, realizzati tutti con un DJI Mini 3 Pro.
+      Il mio <strong>obiettivo</strong> è puntare alla valorizzazione del territorio 
+      attraverso una <strong>prospettiva diversa</strong>.
+    </p>
+    <div class="intro-line"></div>
+  </div>
+  </section>
+
+    <section class="gallery-grid">
+      <div class="gallery-item fade-in" data-desc="Foto scattata durante il concertro per il 40° anniversario del Complesso Bandistico di Gissi.">
+        <img src="png/banda.jpeg" class="img-top" alt="Banda Gissi">
+        <div class="info">
+          <h2>Banda Gissi</h2>
+          <p>Antonio</p>
+        </div>
+      </div>
+
+       <div class="gallery-item fade-in" data-desc="Foto scattata al Porto di Vasto.">
+        <img src="png/macchina porto.jpg" class="img-center" alt="Macchina Porto">
+        <div class="info">
+          <h2>Macchina Porto</h2>
+          <p>Antonio</p>
+        </div>
+     </div>
+
+      <div class="gallery-item fade-in" data-desc="Foto scattata a Gissi Vecchia, durante un tramonto invernale.">
+        <img src="png/gissi.jpg" class="img-center" alt="Gissi">
+        <div class="info">
+          <h2>Gissi</h2>
+          <p>Antonio</p>
+        </div>
+      </div>
+      
+      <div class="gallery-item fade-in" data-desc="Corso di Gissi">
+        <video>
+          <source src="png/corso gissi.MOV " class="img-bottom" alt="corso Gissi">
+        </video>
+         <div class="badge">00:25</div>
+        <div class="info">
+          <h2>Corso Di Gissi</h2>
+          <p>Antonio</p>
+        </div>
+     </div>  
+
+      <div class="gallery-item fade-in" data-desc="Video girato verso il porto di Vasto, durante un tramonto.">
+        <video>  
+          <source src="png/macchina rettilineo porto.MOV" class="img-bottom" alt="">
+        </video>
+           <div class="badge">00:28</div>
+        <div class="info">
+          <h3>Rettilineo Porto</h3>
+          <p>Antonio</p>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in" data-desc="">
+        <video>  
+          <source src="png/Gissi tra le nuvole.MOV" class="img-bottom" alt="">
+        </video>
+         <div class="badge">00:39</div>
+        <div class="info">
+          <h2>Gissi tra le nuvole</h2>
+          <p>Antonio</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="more-to-come">
+  <div class="dots-animation">
+    <span></span><span></span><span></span>
+  </div>
+  <h3>More to come...</h3>
+  <p>Nuovi scatti e riprese aeree sono in fase di montaggio.</p>
+</div>
+
+    <div class="copyright">&copy; 2026 | Antonio Costantino</div>
+  </div>
+
+  <div id="photoModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div class="photo-wrapper" style="position: relative;">
+        <img id="modalImg" src="" alt="Foto Ingrandita" style="display: none;">
+        <video id="modalVideo" controls controlsList="nodownload" oncontextmenu="return false;" style="display: none; width: 100%; max-height: 70vh; background: #000;"></video>
+        
+        <div class="protection-overlay" id="protectionOverlay"></div>
+      </div> 
+      <div class="modal-text">
+        <h2 id="modalTitle">Titolo</h2>
+        <p id="modalDesc">Descrizione...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    
+    // Dopo 1 secondo ridiamo al contenitore la velocità scattante
+    setTimeout(() => {
+      document.getElementById('page-content').style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+    }, 1000); 
+  });
+
+  // --- Chiusura Menu ---
+  const menuToggle = document.getElementById('menuToggle');
+  const menuButton = document.querySelector('.menu'); 
+  const optionsMenu = document.querySelector('.options'); 
+
+  document.addEventListener('click', function(event) {
+    if (menuToggle.checked) {
+      const target = event.target;
+      if (!optionsMenu.contains(target) && !menuButton.contains(target) && target !== menuToggle) {
+        menuToggle.checked = false; 
+      }
+    }
+  });
+
+  // --- VARIABILI MODALE ---
+  const modal = document.getElementById("photoModal");
+  const modalImg = document.getElementById("modalImg");
+  const modalVideo = document.getElementById("modalVideo");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDesc = document.getElementById("modalDesc");
+  const closeModal = document.querySelector(".close-modal");
+  const protectionOverlay = document.getElementById("protectionOverlay");
+
+  // --- LOGICA APERTURA FOTO E VIDEO ---
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const imgElement = this.querySelector('img');
+      const videoElement = this.querySelector('video');
+      
+      // Cerca il titolo in h2 o h3 (alcuni elementi usano h2, altri h3)
+      const titleEl = this.querySelector('.info h2, .info h3');
+      const title = titleEl ? titleEl.innerText : "Senza Titolo";
+      const desc = this.getAttribute('data-desc') || "Nessuna descrizione disponibile.";
+
+      // Se ho cliccato su un Video
+      if (videoElement) {
+        const sourceUrl = videoElement.querySelector('source') ? videoElement.querySelector('source').src : videoElement.src;
+        modalVideo.src = sourceUrl;
+        
+        modalVideo.style.display = "block"; // Mostra il video
+        modalImg.style.display = "none";    // Nascondi la foto
+        protectionOverlay.style.display = "none"; // Togli overlay per cliccare Play
+        
+        modalVideo.play(); 
+      } 
+      // Se ho cliccato su una Foto
+      else if (imgElement) {
+        modalImg.src = imgElement.src;
+        
+        modalImg.style.display = "block";   // Mostra foto
+        modalVideo.style.display = "none";  // Nascondi video
+        modalVideo.pause();                 // Ferma eventuale audio
+        
+        protectionOverlay.style.display = "block"; // Metti overlay protettivo
+
+        modalImg.classList.remove('landscape', 'portrait');
+        modalImg.onload = function() {
+          if (this.naturalWidth > this.naturalHeight) {
+            modalImg.classList.add('landscape');
+          } else {
+            modalImg.classList.add('portrait');
+          }
+        };
+      }
+
+      modalTitle.innerText = title;
+      modalDesc.innerText = desc;
+
+      // Animazione apertura
+      modal.scrollTop = 0; // Assicura che il modale inizi dall'alto
+      modal.style.display = "block"; 
+      modal.offsetHeight; // Forza lettura per CSS
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden'; // Blocca lo scorrimento della pagina principale
+    });
+  });
+
+  // --- LOGICA CHIUSURA ---
+  function hideModal() {
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = "none";
+      modalVideo.pause(); // Stoppa il video
+      modalVideo.currentTime = 0; // Azzera il video
+      document.body.style.overflow = ''; // Ripristina lo scorrimento della pagina
+    }, 400); 
+  }
+
+  closeModal.onclick = hideModal;
+  window.onclick = (e) => { if (e.target == modal) hideModal(); };
+
+  // --- PROTEZIONE TASTO DESTRO E TASTIERA ---
+  document.addEventListener('contextmenu', event => event.preventDefault());
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && (e.key === 's' || e.key === 'u' || e.key === 'p')) {
+      e.preventDefault();
+      alert("Download non consentito.");
+    }
+  });
+
+  // --- EFFETTO CASCATA SCROLL ---
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index % 3 * 100); 
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      observer.observe(item);
+    });
+  });
+ </script>
+</body>
+</html>

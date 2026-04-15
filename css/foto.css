@@ -1,0 +1,443 @@
+#page-content {
+  opacity: 0;
+  transform: translateY(20px);
+  /* Applica la transizione SOLO a opacity e transform, non a tutto il layout */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* Quando il corpo della pagina ha la classe 'loaded', tutto appare */
+body.loaded #page-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 60vh; /* Copre il 60% dell'altezza dello schermo */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.hero-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Scurisce un po' la foto per far leggere il testo */
+  z-index: 2;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: white;
+}
+
+.hero-text h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3.5rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Mobile check */
+@media (max-width: 768px) {
+  .hero-banner { height: 40vh; }
+  .hero-text h1 { font-size: 2rem; }
+}
+
+.page-intro {
+  padding: 60px 20px;
+  /* Centra il contenitore stesso */
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  
+  max-width: 850px; /* Limita la larghezza per non far allungare troppo le righe */
+  margin: 0 auto;   /* Centra il blocco nella pagina */
+  text-align: center; /* Centra il testo all'interno */
+}
+
+.intro-content p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #ececec;
+  font-weight: 300;
+  margin: 0;
+  /* Forza il centraggio del testo anche su mobile */
+  text-align: center; 
+}
+
+/* Evidenzia le parole chiave in blu */
+.intro-content strong {
+  color: #4f8cff;
+  font-weight: 500;
+}
+
+.intro-line {
+  width: 60px;
+  height: 3px;
+  background: #4f8cff;
+  margin: 30px auto 0;
+  border-radius: 2px;
+}
+
+/* Ottimizzazione per mobile */
+@media (max-width: 600px) {
+  .page-intro { padding: 40px 15px; }
+  .intro-content p { font-size: 1.05rem; }
+}
+
+/* --- LAYOUT GALLERIA GRIGLIA --- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 Colonne su schermi grandi */
+  gap: 15px; /* Spazio tra le foto, come nel tuo screenshot */
+  padding: 0 40px;
+  max-width: 1400px;
+  margin: 0 auto 80px; /* Centrato con spazio in basso prima del footer */
+}
+
+/* --- SINGOLO BLOCCO FOTO/VIDEO --- */
+.gallery-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Forza tutte le foto ad essere panoramiche, non importa la dimensione originale! */
+  background-color: #111;
+  overflow: hidden; /* Taglia quello che esce dai bordi */
+  border-radius: 4px; /* Angoli leggermente smussati */
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.gallery-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform; /* Ottimizza le prestazioni */
+}
+
+/* Stato quando entrano nel campo visivo */
+.gallery-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-item img,
+.gallery-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Riempie il rettangolo senza deformare l'immagine */
+  transition: transform 0.5s ease;
+}
+
+  .img-center { object-position: center; }
+  .img-top { object-position: top; }
+  .img-bottom { object-position: bottom; }
+
+/* Effetto Zoom quando passi col mouse */
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* --- BADGE IN ALTO A DESTRA (es. "00:40" o "360°") --- */
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 4px;
+  backdrop-filter: blur(4px); /* Leggero effetto sfocato dietro al numero */
+  z-index: 2;
+}
+
+/* --- INFO IN BASSO A SINISTRA (es. "Panorama of Gissi") --- */
+.info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 15px 20px; /* Spazio per il testo */
+  /* Sfumatura nera per rendere leggibile il testo bianco */
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
+  text-align: left;
+  box-sizing: border-box;
+  z-index: 10;
+  /* STATO INIZIALE: Invisibile e leggermente più in basso */
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none; /* Evita che il testo interferisca con i click finché è invisibile */
+}
+
+/* ...e lo facciamo apparire quando passi il mouse! (Se lo vuoi sempre visibile, cancella opacity: 0 sopra) */
+.gallery-item:hover .info {
+  opacity: 1;
+  transform: translateY(0); /* Torna in posizione originale */
+}
+
+.gallery-item:hover img {
+  transform: scale(1.08); /* Zoom leggermente più marcato */
+  filter: brightness(0.7); /* Scurisce l'immagine sotto il testo */
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #4f8cff; /* Titolo in blu come il tuo brand */
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.2;
+}
+
+.info p {
+  margin: 4px 0 0;
+  padding: 0;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.8);
+  font-weight: 400;
+}
+
+/* --- MODALE (LIGHTBOX) --- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 3000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.685);
+  backdrop-filter: blur(10px);
+  padding: 10px; /* Ridotto per mobile */
+  box-sizing: border-box;
+  overflow-y: auto; /* Permette lo scorrimento se il box è alto */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #1a1a1a;
+  max-width: 900px;
+  width: 100%;
+  margin: 20px auto; /* Ridotto margine per mobile */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.8) translateY(30px);
+  opacity: 0;
+  /* Usiamo cubic-bezier per dare un effetto "rimbalzo elastico" morbido */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+}
+
+.modal.show .modal-content {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.modal-content img {
+  width: 100%;
+  max-height: 70vh; /* Leggermente più grande */
+  object-fit: contain; /* Mostra tutta la foto senza tagliarla */
+  background-color: #000;
+  display: block;
+}
+
+#modalImg.landscape {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+#modalImg.portrait {
+  width: auto;
+  max-width: 100%;
+  max-height: 70vh; /* Non supera il 70% dell'altezza schermo */
+  margin: 0 auto;
+  display: block;
+}
+
+.modal-text {
+  padding: 30px;
+  text-align: left;
+}
+
+.modal-text h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  color: #4f8cff;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+}
+
+.modal-text p {
+  margin: 0;
+  font-size: 1rem;
+  color: #d1d1d1;
+  line-height: 1.6;
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Pulsante di chiusura */
+.close-modal {
+  position: absolute; 
+  top: 15px;        
+  right: 15px;      
+  align-self: flex-end; 
+  margin-right: 15px;
+  margin-bottom: -45px;
+  width: 45px;
+  height: 45px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 32px;
+  line-height: 1; /* Centra la X verticalmente nel cerchio */
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 3200;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4px;
+  margin: 0; 
+  align-self: auto;
+}
+
+.close-modal:hover {
+  color: #4f8cff;
+  transform: scale(1.1);
+}
+
+/* Responsive per cellulari */
+@media (max-width: 768px) {
+  .modal-content { margin: 10px auto; border-radius: 10px; }
+  .modal-text { padding: 20px 15px; }
+  .modal-text h2 { font-size: 1.3rem; margin-bottom: 5px; }
+  .modal-text p { font-size: 0.9rem; }
+  .close-modal { top: 10px; right: 10px; width: 35px; height: 35px; font-size: 24px; }
+  .watermark { font-size: 11px; bottom: 15px; }
+}
+
+/* --- ADATTAMENTO PER DISPOSITIVI MOBILI --- */
+@media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 Colonne su Tablet */
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr; /* 1 Colonna su Smartphone */
+    gap: 12px;
+    padding: 0 15px;
+  }
+}
+
+/* Contenitore per gestire il posizionamento */
+.photo-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+/* OVERLAY INVISIBILE DI PROTEZIONE */
+.protection-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15; /* Sta SOPRA alla foto e al watermark */
+  background: transparent;
+}
+
+.more-to-come {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(to bottom, transparent, rgba(79, 140, 255, 0.05));
+  margin-top: -60px;
+}
+
+.more-to-come h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  color: #4f8cff;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.more-to-come p {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  font-size: 1rem;
+  margin: 0 auto;
+}
+
+/* Animazione dei tre puntini */
+.dots-animation {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.dots-animation span {
+  width: 8px;
+  height: 8px;
+  background-color: #4f8cff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dots-animation span:nth-child(1) { animation-delay: -0.32s; }
+.dots-animation span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+  40% { transform: scale(1); opacity: 1; }
+}

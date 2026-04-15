@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antonio Costantino | Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
+</head>
+
+<body class="home-page"> <div id="page-content">
+    
+    <header class="home-header">
+      <h1>Antonio <span>Costantino</span></h1>
+      <p class="subtitle">Informatica,Innovazione Volo.<br> Benvenuti nel mio spazio digitale.<br>Esplora i miei lavori.</p>
+    </header>
+
+<section class="home-grid">
+  <a href="chi sono.html" class="nav-block block-who">
+    <div class="icon-wrapper"><i class="fas fa-user"></i></div>
+    <h2>Chi Sono</h2>
+    <p>Scopri il mio percorso.</p>
+  </a>
+
+  <a href="foto.html" class="nav-block block-photo">
+    <div class="icon-wrapper"><i class="fas fa-camera"></i></div>
+    <h2>Foto</h2>
+    <p>I miei scatti e riprese migliori.</p>
+  </a>
+
+  <a href="progetti.html" class="nav-block block-projects">
+    <div class="icon-wrapper"><i class="fas fa-rocket"></i></div>
+    <h2>Progetti</h2>
+    <p>Innovazione e tecnologia.</p>
+  </a>
+</section>
+
+    <footer>
+      <h3 class="footer-title">Contatti</h3>
+      <div class="contatti">
+        <span class="contact-item"><a href="mailto:acostantino2005@gmail.com" target="_blank" class="social-item">
+         <div class="icon-box"><i class="far fa-envelope"> Email</i></div></a></span>
+        <span class="contact-item"><a href="https://www.linkedin.com/in/antonio-costantino-6b9562305/" target="_blank" class="social-item">
+        <div class="icon-box"><i class="fab fa-linkedin-in"> LinkedIn</i></div></a></span>
+        <span class="contact-item"><a href="https://www.instagram.com/antonio_costantino05/" target="_blank" class="social-item">
+        <div class="icon-box"><i class="fab fa-instagram"> Instagram</i></div></a></span>
+      </div>
+      <div class="copyright">&copy; 2026 | Antonio Costantino</div>
+    </footer>
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+    // 1. Attiva l'ingresso soft della pagina
+    document.body.classList.add('loaded');
+
+    // 2. Gestione dei faders (il tuo codice esistente per lo scroll)
+    const faders = document.querySelectorAll('.fade-in');
+    const options = { threshold: 0.05, rootMargin: "0px 0px -20px 0px"};
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+    faders.forEach(fader => observer.observe(fader));
+    });
+ </script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+/* --- Stile generale --- */
+/* Impedisce di trascinare le immagini fuori dal sito */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
+}
+
+/* Evita che su mobile appaia il menu "salva" tenendo premuto */
+.gallery-item img, #modalImg {
+  -webkit-touch-callout: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #1E1E1E;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden; /* Evita scivolamenti laterali */
+}
+
+#page-content {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Titoli --- */
+h1, h2, h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.2em;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* --- Testo --- */
+p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1em;
+  max-width: 650px;
+  line-height: 1.8;
+  padding: 0 20px;
+  font-weight: 300;
+}
+
+/* --- Immagine --- */
+.io-img { 
+  width: 150px; /* La foto profilo ora è specifica */
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%; 
+  margin: 20px 0;
+  border: 2px solid #4f8cff;
+}
+
+/* --- Link generici --- */
+a {
+  text-decoration: none;
+  color: #4f8cff;
+  transition: 0.3s;
+}
+
+a:hover {
+  transform: scale(1.05);
+  color: #3a6fd8;
+}
+
+/* --- Link nei paragrafi --- */
+p a {
+  color: #fff;
+}
+p a:hover {
+  color: #ccc;
+  text-decoration: underline;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+/* Stile base del cerchio dietro l'icona */
+.icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* Colore Blu per "Chi Sono" */
+.block-who .icon-wrapper {
+  background: rgba(79, 140, 255, 0.1);
+  color: #4f8cff;
+  border: 1px solid rgba(79, 140, 255, 0.3);
+}
+
+/* Colore Arancio/Giallo per "Foto" (richiama il sole/tramonto) */
+.block-photo .icon-wrapper {
+  background: rgba(255, 159, 67, 0.1);
+  color: #ff9f43;
+  border: 1px solid rgba(255, 159, 67, 0.3);
+}
+
+/* Colore Rosso/Fucsia per "Progetti" (richiama la spinta del razzo) */
+.block-projects .icon-wrapper {
+  background: rgba(255, 107, 107, 0.1);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* Effetto al passaggio del mouse: l'icona si illumina */
+.nav-block:hover .icon-wrapper {
+  transform: scale(1.1);
+}
+
+.block-who:hover { border-color: #4f8cff; }
+.block-photo:hover { border-color: #ff9f43; }
+.block-projects:hover { border-color: #ff6b6b; }
+
+/* --- Menu Home --- */
+.menuToggle {
+  display: none;
+}
+
+.menu {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  z-index: 1100;
+  background-color: rgba(30, 30, 30, 0.8); 
+  border: 1px solid rgba(79, 140, 255, 0.3); 
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  gap: 5px; 
+  z-index: 2100;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(5px); 
+  transition: transform 0.5s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Modifica alle lineette interne per adattarle al nuovo contenitore */
+.hamburger {
+  display: block;
+  width: 25px; 
+  height: 3px;
+  background-color: #4f8cff;
+  border-radius: 2px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.menu:hover {
+  background-color: rgba(79, 140, 255, 0.1); 
+  border-color: #4f8cff;
+}
+
+.menu:hover .hamburger {
+  transform: scale(1.1); 
+}
+
+/* 1. Sposta il contenuto a sinistra di 300px (pari alla larghezza del menu) */
+#menuToggle:checked ~ #page-content {
+  transform: translateX(-100px);
+}
+
+/* 2. Fai entrare il menu */
+#menuToggle:checked ~ .options {
+  transform: translateX(0);
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  margin-top: auto;
+}
+
+/* Contenitore generale dei contatti nel menu */
+.menu-contacts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px; /* Spazio tra Email, LinkedIn, ecc. */
+  margin-top: auto;
+  padding-bottom: 40px;
+  width: 100%;
+}
+
+/* La scritta "CONTATTI" in blu */
+.contacts-title {
+  color: #4f8cff;
+  font-size: 0.75rem; 
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+/* I nomi delle applicazioni (Email, LinkedIn, ecc.) */
+.menu-contacts a {
+  font-size: 0.9rem !important; /* Dimensione ridotta */
+  color: rgba(255, 255, 255, 0.6) !important; /* Colore più discreto */
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 300;
+}
+
+.menu-contacts a:hover {
+  color: #4f8cff !important; /* Diventa blu quando ci passi sopra */
+  transform: translateY(-2px); /* Leggerissimo movimento verso l'alto */
+}
+
+/* --- Opzioni menu --- */
+.options {
+  position: fixed;  
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: rgba(17, 17, 17, 0.65);
+  border-left: 1px solid rgba(79, 140, 255, 0.2); 
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
+  gap: 20px;
+  transform: translateX(100%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Animazione di entrata più fluida */ 
+  overflow-y: auto; /* Permette lo scorrimento verticale se il contenuto supera l'altezza */
+}
+
+.options a {
+  color: #fff;
+  font-size: 1.3em;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.options a:hover {
+  background-color: transparent;
+  color: #4f8cff;
+  transform: translateX(-10px); /* Effetto hover che sposta il testo a sinistra */
+}
+
+/* --- Pagina attiva --- */
+.options a.active {
+  background-color: transparent;
+  color: #4f8cff;
+  font-weight: 700;
+}
+
+
+/* --- Footer --- */
+footer {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: auto;
+  padding: 10px 0; 
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  box-sizing: border-box; 
+  position: relative;
+}
+
+.footer-title {
+  font-size: 1.0em;
+  margin: 0;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+footer .contatti {
+  display: flex;
+  gap: 25px; /* Spazio equilibrato tra i tre link */
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; /* Fondamentale per il cellulare */
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contact-item:hover {
+  transform: scale(1.15);
+}
+
+footer .contact-item a {
+  color: #4f8cff;
+  font-weight: 500;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  transition: 0.3s;
+}
+
+.footer-social-link i {
+  color: #4f8cff;
+}
+
+.footer-social-link:hover {
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Colori personalizzati all'hover */
+.contact-item:nth-child(1):hover a { color: #ff4f4f; } /* Mail -> Rosso */
+.contact-item:nth-child(2):hover a { color: #0077b5; } /* LinkedIn -> Blu LinkedIn */
+.contact-item:nth-child(3):hover a { color: #e1306c; } /* Instagram -> Rosa/Viola */
+
+@media(max-width:768px){
+  .menu-panel {
+    width: 100%; /* occupa tutto lo schermo su mobile */
+  }
+}
+
+.copyright {
+  margin-top: auto; 
+  padding: 20px 30px; 
+  color: rgba(255, 255, 255, 0.3); 
+  font-size: 0.85em;
+  letter-spacing: 1px;
+}
+
+/* --- STILE SPECIFICO PER I BLOCCHI DELLA HOME --- */
+.home-header {
+  padding: 100px 20px 50px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .home-header { padding: 60px 15px 30px; }
+  .home-header h1 { font-size: 1.8rem; }
+  .subtitle { font-size: 1rem; width: 100%; }
+}
+
+.home-header h1 span {
+  color: #4f8cff;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colonne su PC */
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto 100px; /* Spazio sotto prima del footer */
+  padding: 0 30px;
+}
+
+.nav-block {
+  background-color: #252525;
+  padding: 45px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  border: 1px solid rgba(79, 140, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-block:hover {
+  transform: translateY(-12px);
+  background-color: #2a2a2a;
+  border-color: #4f8cff;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+.nav-block .icon { font-size: 3.2rem; margin-bottom: 15px; }
+.nav-block h2 { font-size: 1.6rem; color: #fff; margin: 10px 0; }
+.nav-block p { color: rgba(255,255,255,0.5); font-size: 0.95rem; margin: 0; line-height: 1.4; }
+
+/* Adattamento per tablet e cellulari */
+@media (max-width: 992px) { .home-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .home-grid { grid-template-columns: 1fr; } }
+
+/* --- MENU FULL SCREEN SU MOBILE --- */
+@media (max-width: 768px) {
+  .options {
+    width: 100% !important; /* Copre tutta la larghezza */
+    border-left: none !important; /* Rimuoviamo il bordo sinistro perché non c'è più stacco */
+    
+    /* Su mobile usiamo flex-start: se il contenuto è tanto, inizia dall'alto e abilita lo scroll */
+    justify-content: flex-start !important; 
+    align-items: center !important;
+    gap: 40px !important; /* Aumentiamo leggermente il gap per più spazio e potenziale overflow */
+    padding: 80px 0 40px; /* Riduciamo il padding verticale per massimizzare lo spazio per il contenuto */
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch; /* Rende lo scroll fluido su dispositivi iOS */
+    overscroll-behavior: contain; /* Impedisce alla pagina sotto di scorrere quando muovi il menu */
+  }
+
+  /* Rimuoviamo i margini automatici che su mobile "spingono" i contatti troppo in basso
+     impedendo il corretto scorrimento della lista */
+  .options .menu-links, 
+  .options .menu-contacts {
+    margin-top: 0 !important;
+  }
+
+  /* Fondamentale: impedisce ai link e ai contatti di rimpicciolirsi per "forzare" la vista */
+  .options a, .menu-contacts {
+    flex-shrink: 0 !important; /* Assicuriamo che non si rimpiccioliscano */
+  }
+
+  /* La tua linea blu? Mettiamola in fondo o in alto come dettaglio di classe */
+  .options::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px; /* Una lama blu orizzontale in alto */
+    background-color: #4f8cff;
+    box-shadow: 0 2px 15px rgba(79, 140, 255, 0.4);
+  }
+
+  /* Rimpiccioliamo leggermente i link perché a tutto schermo sembrano enormi */
+  .options a {
+    font-size: 1.8rem !important; 
+  }
+
+  /* Quando il menu è aperto, impediamo al contenuto sotto di muoversi troppo */
+  #menuToggle:checked ~ #page-content {
+    transform: translateX(0) !important; /* Non spostiamo la pagina di lato, tanto il menu la copre tutta */
+    filter: blur(5px); /* Effetto sfocato sulla pagina che sta "sotto" */
+  }
+}
