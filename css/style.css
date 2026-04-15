@@ -209,6 +209,8 @@ p a:hover {
 
 /* La scritta "CONTATTI" in blu */
 .contacts-title {
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif !important;
   color: #4f8cff;
   font-size: 0.75rem; 
   text-transform: uppercase;
@@ -219,11 +221,14 @@ p a:hover {
 
 /* I nomi delle applicazioni (Email, LinkedIn, ecc.) */
 .menu-contacts a {
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif !important;
   font-size: 0.9rem !important; /* Dimensione ridotta */
   color: rgba(255, 255, 255, 0.6) !important; /* Colore più discreto */
   text-decoration: none;
   transition: all 0.3s ease;
   font-weight: 300;
+  font-weight: 400;
 }
 
 .menu-contacts a:hover {
@@ -320,6 +325,8 @@ footer .contatti {
 }
 
 footer .contact-item a {
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif !important;
   color: #4f8cff;
   font-weight: 500;
 }
@@ -366,6 +373,14 @@ footer .contact-item a {
 .home-header {
   padding: 100px 20px 50px;
   text-align: center;
+}
+
+.subtitle {
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  max-width: 650px;
+  margin: 0 auto;
 }
 
 @media (max-width: 600px) {
