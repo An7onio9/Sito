@@ -1,0 +1,141 @@
+#page-content {
+  opacity: 0;
+  transform: translateY(20px);
+  /* Applica la transizione SOLO a opacity e transform, non a tutto il layout */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* Quando il corpo della pagina ha la classe 'loaded', tutto appare */
+body.loaded #page-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-header {
+  padding: 100px 20px 40px;
+  text-align: center;
+}
+
+.page-header h1 span {
+  color: #4f8cff;
+}
+
+/* --- CONTENITORE PROGETTI --- */
+.projects-container {
+  max-width: 900px; /* Non troppo largo, così le card sembrano belle piene */
+  margin: 0 auto 100px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Spazio tra un progetto e l'altro */
+}
+
+/* --- SINGOLA CARD --- */
+.project-card {
+  background-color: #252525;
+  border-radius: 20px;
+  padding: 35px;
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  border: 1px solid rgba(79, 140, 255, 0.05);
+  
+  /* Stato iniziale per l'animazione a cascata allo scroll */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  border-color: rgba(79, 140, 255, 0.3);
+}
+
+/* --- ICONE (Se non hai una foto del progetto) --- */
+.project-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  flex-shrink: 0; /* Impedisce all'icona di schiacciarsi */
+}
+
+.code-icon { background: rgba(0, 210, 255, 0.1); color: #00d2ff; }
+.drone-icon { background: rgba(46, 213, 115, 0.1); color: #2ed573; }
+.video-icon { background: rgba(255, 107, 107, 0.1); color: #ff6b6b; }
+
+/* --- CONTENUTO TESTUALE --- */
+.project-content {
+  text-align: left; /* Qui il testo a sinistra ci sta, è più leggibile! */
+}
+
+.project-content h3 {
+  font-size: 1.6rem;
+  margin: 0 0 15px 0;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.project-content p {
+  padding: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 20px;
+}
+
+/* --- TAG TECNOLOGICI (Fondamentali per il CV) --- */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #4f8cff;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(79, 140, 255, 0.2);
+}
+
+/* --- LINK AL PROGETTO --- */
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+
+.project-link:hover {
+  color: #4f8cff;
+  border-bottom-color: #4f8cff;
+  transform: none; /* Sovrascrive il scale generale se c'è */
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+  .project-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+  }
+  .project-content { text-align: center; }
+  .tech-tags { justify-content: center; }
+}

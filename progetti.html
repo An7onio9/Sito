@@ -39,17 +39,85 @@
    </div>
   </nav>
 
-    <div class="copyright">&copy; 2026 | Antonio Costantino</div>
+    <div id="page-content">
+    
+    <header class="page-header">
+      <h1>I Miei <span>Progetti</span></h1>
+      <p class="subtitle">Sviluppo software, ispezioni UAS e soluzioni tecniche.</p>
+    </header>
 
-      <script>
-    window.addEventListener('load', () => {
+    <section class="projects-container">
+      
+      <article class="project-card fade-in">
+        <div class="project-icon code-icon">
+          <i class="fas fa-code"></i>
+        </div>
+        <div class="project-content">
+          <h3>Sviluppo Web: Portfolio Dinamico</h3>
+          <div class="tech-tags">
+            <span class="tag">HTML5/CSS3</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Git/GitHub</span>
+          </div>
+          <p>Progettazione e sviluppo di un sito web responsivo e ottimizzato per esporre i miei scatti e presentare il mio profilo professionale.</p>
+          <a href="https://github.com/An7onio9/Sito" target="_blank" class="project-link">
+            Vedi Codice <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </article>
+
+<article class="project-card fade-in">
+  <div class="project-icon video-icon">
+    <i class="fas fa-film"></i>
+  </div>
+  <div class="project-content">
+    <h3>Video Production: Fiera imprese simulate</h3>
+    <div class="tech-tags">
+      <span class="tag">Video Editing</span>
+      <span class="tag">UAS Footage</span>
+      <span class="tag">Fast Delivery</span>
+    </div>
+    <p>Progetto realizzato in 72 per far scoprire il territorio di Gissi nella <strong>XII fiera internazionale delle imprese simulate</strong>. 
+      Ho gestito l'intero processo: dalla pianificazione dalle riprese sul campo alla post-produzione,
+      ottimizzando il montaggio per rispettare il limite temporale imposto della fiera.
+      Il lavoro al termine della giornata ha ricevuto molti feedback positivi.</p>
+    <a href="https://www.youtube.com/watch?v=VzoTzIW2QZ8" target="_blank" class="project-link">
+      Guarda il video <i class="fas fa-play-circle"></i>
+    </a>
+  </div>
+</article>
+</section>
+
+      <div class="copyright">&copy; 2026 | Antonio Costantino</div>
+  </div>
+
+<script>
+window.addEventListener('load', () => {
     document.body.classList.add('loaded');
     
-    // Dopo 1 secondo (quando l'animazione di entrata è finita)...
+    // Dopo 1 secondo ridiamo al contenitore la velocità scattante
     setTimeout(() => {
-      // ...ridiamo al contenitore la velocità scattante del menu!
       document.getElementById('page-content').style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
     }, 1000); 
+  });
+
+    // --- EFFETTO CASCATA SCROLL ---
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index % 3 * 100); 
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.project-card').forEach(item => {
+      observer.observe(item);
+    });
   });
  </script>
  
