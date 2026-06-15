@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risolutore Simplesso</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --primary: #bb86fc;
+            --primary-hover: #9c27b0;
+            --border: #333;
+            --table-header: #2c2c2c;
+            --pivot-bg: #ffb300;
+            --pivot-color: #000;
+            --highlight-bg: #323232;
+            --error: #cf6679;
+            --success: #03dac6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3, h4 {
+            color: var(--text-color);
+            margin-top: 0;
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+        
+        /* Input Cells */
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        input[type="number"], select {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border);
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 80px;
+        }
+        select {
+            width: auto;
+        }
+        button {
+            background-color: var(--primary);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: var(--primary-hover);
+            color: white;
+        }
+        .grid-container {
+            overflow-x: auto;
+            margin-bottom: 15px;
+        }
+        .grid-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 8px;
+            flex-wrap: nowrap;
+        }
+        .grid-cell {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .cell-input {
+            width: 60px !important;
+            text-align: right;
+        }
+
+        .step {
+            background: var(--card-bg);
+            padding: 15px;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            overflow-x: auto;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 14px;
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 8px;
+            text-align: center;
+            min-width: 50px;
+        }
+        th {
+            background-color: var(--table-header);
+        }
+        .pivot {
+            background-color: var(--pivot-bg) !important;
+            color: var(--pivot-color);
+            font-weight: bold;
+        }
+        .highlight {
+            background-color: var(--highlight-bg);
+        }
+        .error {
+            color: var(--error);
+            font-weight: bold;
+        }
+        .success {
+            color: var(--success);
+            font-weight: bold;
+        }
+        .formula {
+            font-style: italic;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 600px) {
+            th, td {
+                padding: 4px;
+                font-size: 12px;
+            }
+            .controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Risolutore Simplesso (Due Fasi)</h1>
+        
+        <div class="card">
+            <h3>Impostazione Problema</h3>
+            <div class="controls">
+                <label>Obiettivo: 
+                    <select id="optType">
+                        <option value="max">Max</option>
+                        <option value="min">Min</option>
+                    </select>
+                </label>
+                <label>Variabili (n): <input type="number" id="numVars" value="2" min="1"></label>
+                <label>Vincoli (m): <input type="number" id="numCons" value="3" min="1"></label>
+                <button onclick="generateGrid()">Genera Griglia</button>
+            </div>
+            
+            <div id="gridArea" style="display:none;">
+                <h4>Funzione Obiettivo</h4>
+                <div class="grid-container" id="objGrid"></div>
+                
+                <h4>Vincoli</h4>
+                <div class="grid-container" id="consGrid"></div>
+                
+                <button onclick="solveFromGrid()">Risolvi Problema</button>
+            </div>
+        </div>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // Interfaccia Griglia
+        function generateGrid() {
+            const numVars = parseInt(document.getElementById('numVars').value);
+            const numCons = parseInt(document.getElementById('numCons').value);
+            
+            const objGrid = document.getElementById('objGrid');
+            const consGrid = document.getElementById('consGrid');
+            
+            let objHtml = '<div class="grid-row">Z = ';
+            for(let i=1; i<=numVars; i++) {
+                objHtml += `<div class="grid-cell"><input type="number" class="cell-input obj-coeff" data-var="${i}" value="0"> x${i}</div>`;
+                if(i < numVars) objHtml += ' + ';
+            }
+            objHtml += '</div>';
+            objGrid.innerHTML = objHtml;
+            
+            let consHtml = '';
+            for(let j=1; j<=numCons; j++) {
+                consHtml += `<div class="grid-row">`;
+                for(let i=1; i<=numVars; i++) {
+                    consHtml += `<div class="grid-cell"><input type="number" class="cell-input cons-coeff" data-row="${j}" data-var="${i}" value="0"> x${i}</div>`;
+                    if(i < numVars) consHtml += ' + ';
+                }
+                consHtml += `
+                    <select class="cons-type" data-row="${j}">
+                        <option value="<=">&le;</option>
+                        <option value=">=">&ge;</option>
+                        <option value="=">=</option>
+                    </select>
+                    <input type="number" class="cell-input cons-rhs" data-row="${j}" value="0">
+                </div>`;
+            }
+            consGrid.innerHTML = consHtml;
+            
+            document.getElementById('gridArea').style.display = 'block';
+            document.getElementById('output').innerHTML = '';
+        }
+
+        function solveFromGrid() {
+            const numVars = parseInt(document.getElementById('numVars').value);
+            const numCons = parseInt(document.getElementById('numCons').value);
+            const isMax = document.getElementById('optType').value === 'max';
+            
+            const solver = new SimplexSolver();
+            solver.clearLog();
+            
+            try {
+                let objFunc = {};
+                for(let i=1; i<=numVars; i++) {
+                    let val = parseFloat(document.querySelector(`.obj-coeff[data-var="${i}"]`).value);
+                    if(val !== 0) objFunc['x'+i] = val;
+                }
+                
+                let constraints = [];
+                for(let j=1; j<=numCons; j++) {
+                    let expr = {};
+                    for(let i=1; i<=numVars; i++) {
+                        let val = parseFloat(document.querySelector(`.cons-coeff[data-row="${j}"][data-var="${i}"]`).value);
+                        if(val !== 0) expr['x'+i] = val;
+                    }
+                    let type = document.querySelector(`.cons-type[data-row="${j}"]`).value;
+                    let rhs = parseFloat(document.querySelector(`.cons-rhs[data-row="${j}"]`).value);
+                    constraints.push({expr, type, rhs});
+                }
+                
+                const prob = { isMax, objFunc, constraints };
+                
+                solver.log(`<h3>Inizio Risoluzione</h3>
+                          <p>Obiettivo: <b>${prob.isMax ? 'MAX' : 'MIN'}</b></p>`);
+                
+                solver.buildTableau(prob);
+            } catch(e) {
+                solver.log(`<p class="error">Errore: ${e.message}</p>`);
+            }
+        }
+
+        // Logic (ex app.js)
+        class SimplexSolver {
+            constructor() {
+                this.outputDiv = document.getElementById('output');
+            }
+
+            log(html) {
+                const div = document.createElement('div');
+                div.className = 'step';
+                div.innerHTML = html;
+                this.outputDiv.appendChild(div);
+            }
+
+            clearLog() {
+                this.outputDiv.innerHTML = '';
+            }
+
+            buildTableau(prob) {
+                let vars = new Set();
+                Object.keys(prob.objFunc).forEach(v => vars.add(v));
+                prob.constraints.forEach(c => Object.keys(c.expr).forEach(v => vars.add(v)));
+                
+                let origVars = Array.from(vars).sort();
+                let constraints = prob.constraints;
+                
+                constraints.forEach(c => {
+                    if (c.rhs < 0) {
+                        let newExpr = {};
+                        for (let v in c.expr) newExpr[v] = -c.expr[v];
+                        c.expr = newExpr;
+                        c.rhs = -c.rhs;
+                        if (c.type === '<=') c.type = '>=';
+                        else if (c.type === '>=') c.type = '<=';
+                    }
+                });
+
+                let numSlack = 0;
+                let numArt = 0;
+                
+                let cols = [...origVars];
+                
+                let artificialVars = [];
+                let slackSurplusVars = [];
+                let basis = [];
+                
+                constraints.forEach((c, idx) => {
+                    if (c.type === '<=') {
+                        numSlack++;
+                        let sName = 's' + numSlack;
+                        slackSurplusVars.push({ name: sName, row: idx, coeff: 1 });
+                        cols.push(sName);
+                        basis.push(sName);
+                    } else if (c.type === '>=') {
+                        numSlack++;
+                        let sName = 's' + numSlack;
+                        slackSurplusVars.push({ name: sName, row: idx, coeff: -1 });
+                        cols.push(sName);
+                        
+                        numArt++;
+                        let aName = 'A' + numArt;
+                        artificialVars.push({ name: aName, row: idx });
+                        cols.push(aName);
+                        basis.push(aName);
+                    } else if (c.type === '=') {
+                        numArt++;
+                        let aName = 'A' + numArt;
+                        artificialVars.push({ name: aName, row: idx });
+                        cols.push(aName);
+                        basis.push(aName);
+                    }
+                });
+                
+                this.log(`<p>Variabili originali: ${origVars.join(', ')}</p>
+                          <p>Variabili slack/surplus: ${slackSurplusVars.map(v => v.name).join(', ')}</p>
+                          <p>Variabili artificiali: ${artificialVars.map(v => v.name).join(', ')}</p>`);
+
+                let rows = constraints.length;
+                let numCols = cols.length + 1;
+                let tableau = Array(rows + 1).fill().map(() => Array(numCols).fill(0));
+                
+                let usePhase1 = artificialVars.length > 0;
+                
+                for (let i = 0; i < constraints.length; i++) {
+                    let r = i + 1;
+                    let c = constraints[i];
+                    origVars.forEach((v, vIdx) => {
+                        tableau[r][vIdx] = c.expr[v] || 0;
+                    });
+                    tableau[r][numCols - 1] = c.rhs;
+                }
+                
+                slackSurplusVars.forEach(v => {
+                    let colIdx = cols.indexOf(v.name);
+                    tableau[v.row + 1][colIdx] = v.coeff;
+                });
+                
+                artificialVars.forEach(v => {
+                    let colIdx = cols.indexOf(v.name);
+                    tableau[v.row + 1][colIdx] = 1;
+                });
+                
+                if (usePhase1) {
+                    this.log(`<h3>Inizio FASE 1</h3>`);
+                    let r0 = tableau[0];
+                    artificialVars.forEach(v => {
+                        let colIdx = cols.indexOf(v.name);
+                        tableau[0][colIdx] = 1;
+                    });
+                    
+                    artificialVars.forEach(v => {
+                        let colIdx = cols.indexOf(v.name);
+                        let rIdx = v.row + 1;
+                        for (let j = 0; j < numCols; j++) {
+                            tableau[0][j] -= tableau[rIdx][j];
+                        }
+                    });
+                    
+                    this.renderTableau(tableau, cols, basis, "Tableau Iniziale FASE 1 (in forma canonica)");
+                    this.runSimplex(tableau, cols, basis, true, prob, artificialVars);
+                    
+                } else {
+                    this.log(`<h3>Inizio FASE 2 (Senza Fase 1)</h3>`);
+                    this.setupPhase2(tableau, cols, basis, prob, [], []);
+                }
+            }
+
+            renderTableau(tableau, cols, basis, title, pivotRow = -1, pivotCol = -1) {
+                let html = `<h4>${title}</h4><table><thead><tr><th>Base</th>`;
+                cols.forEach((c, idx) => {
+                    html += `<th class="${idx === pivotCol ? 'highlight' : ''}">${c}</th>`;
+                });
+                html += `<th>b</th></tr></thead><tbody>`;
+                
+                for (let i = 0; i < tableau.length; i++) {
+                    let rowBase = i === 0 ? '-z' : basis[i-1];
+                    html += `<tr><th>${rowBase}</th>`;
+                    for (let j = 0; j < tableau[i].length; j++) {
+                        let val = tableau[i][j];
+                        let css = '';
+                        if (i === pivotRow && j === pivotCol) css = 'pivot';
+                        else if (i === pivotRow || j === pivotCol) css = 'highlight';
+                        
+                        let strVal = Math.abs(val) < 1e-10 ? "0" : Number(val.toFixed(4)).toString();
+                        html += `<td class="${css}">${strVal}</td>`;
+                    }
+                    html += `</tr>`;
+                }
+                html += `</tbody></table>`;
+                this.log(html);
+            }
+
+            runSimplex(tableau, cols, basis, isPhase1, prob, artificialVars) {
+                let maxIter = 100;
+                let iter = 0;
+                let numCols = cols.length + 1;
+                
+                while (iter < maxIter) {
+                    iter++;
+                    let pivotCol = -1;
+                    let minVal = -1e-10;
+                    for (let j = 0; j < cols.length; j++) {
+                        if (tableau[0][j] < minVal) {
+                            minVal = tableau[0][j];
+                            pivotCol = j;
+                        }
+                    }
+                    
+                    if (pivotCol === -1) {
+                        this.log(`<p class="success">Soluzione ottima trovata per questa fase!</p>`);
+                        break;
+                    }
+                    
+                    let pivotRow = -1;
+                    let minRatio = Infinity;
+                    for (let i = 1; i < tableau.length; i++) {
+                        if (tableau[i][pivotCol] > 1e-10) {
+                            let ratio = tableau[i][numCols - 1] / tableau[i][pivotCol];
+                            if (ratio < minRatio) {
+                                minRatio = ratio;
+                                pivotRow = i;
+                            }
+                        }
+                    }
+                    
+                    if (pivotRow === -1) {
+                        this.log(`<p class="error">Il problema è illimitato.</p>`);
+                        return;
+                    }
+                    
+                    this.log(`<p class="formula"><b>Scelta Pivot:</b> La colonna <strong>${cols[pivotCol]}</strong> entra in base perché ha il coefficiente più negativo nella riga obiettivo (${Number(tableau[0][pivotCol].toFixed(4))}). La riga <strong>${basis[pivotRow-1]}</strong> esce dalla base per il test del minimo rapporto.</p>`);
+                    this.renderTableau(tableau, cols, basis, `Iterazione ${iter}`, pivotRow, pivotCol);
+                    
+                    basis[pivotRow - 1] = cols[pivotCol];
+                    let pivotVal = tableau[pivotRow][pivotCol];
+                    
+                    for (let j = 0; j < numCols; j++) {
+                        tableau[pivotRow][j] /= pivotVal;
+                    }
+                    
+                    for (let i = 0; i < tableau.length; i++) {
+                        if (i !== pivotRow) {
+                            let factor = tableau[i][pivotCol];
+                            for (let j = 0; j < numCols; j++) {
+                                tableau[i][j] -= factor * tableau[pivotRow][j];
+                            }
+                        }
+                    }
+                }
+                
+                if (isPhase1) {
+                    let wVal = -tableau[0][numCols - 1];
+                    if (wVal > 1e-6) {
+                        this.log(`<p class="error">Il problema originario NON è ammissibile (valore W = ${Number(wVal.toFixed(4))} > 0).</p>`);
+                        return;
+                    }
+                    this.log(`<p class="success">Fase 1 completata con successo.</p>`);
+                    
+                    let colsToRemove = artificialVars.map(v => v.name);
+                    this.setupPhase2(tableau, cols, basis, prob, colsToRemove);
+                } else {
+                    this.printFinalSolution(tableau, cols, basis, prob);
+                }
+            }
+
+            setupPhase2(tableau, cols, basis, prob, colsToRemove) {
+                this.log(`<h3>Inizio FASE 2</h3>`);
+                
+                let newCols = [];
+                let colIndices = [];
+                for (let j = 0; j < cols.length; j++) {
+                    if (!colsToRemove.includes(cols[j])) {
+                        newCols.push(cols[j]);
+                        colIndices.push(j);
+                    }
+                }
+                colIndices.push(cols.length); 
+                
+                let numColsF2 = colIndices.length;
+                let t2 = Array(tableau.length).fill().map(() => Array(numColsF2).fill(0));
+                
+                for (let i = 0; i < tableau.length; i++) {
+                    for (let j = 0; j < colIndices.length; j++) {
+                        t2[i][j] = tableau[i][colIndices[j]];
+                    }
+                }
+                
+                let objCoeffs = {};
+                for(let v in prob.objFunc) {
+                    let c = prob.objFunc[v];
+                    objCoeffs[v] = prob.isMax ? c : -c;
+                }
+                
+                for (let j = 0; j < newCols.length; j++) {
+                    let v = newCols[j];
+                    t2[0][j] = -(objCoeffs[v] || 0);
+                }
+                t2[0][numColsF2 - 1] = 0; 
+                
+                for (let i = 1; i < t2.length; i++) {
+                    let bVar = basis[i - 1];
+                    let colIdx = newCols.indexOf(bVar);
+                    if (colIdx !== -1) {
+                        let factor = t2[0][colIdx];
+                        for (let j = 0; j < numColsF2; j++) {
+                            t2[0][j] -= factor * t2[i][j];
+                        }
+                    }
+                }
+                
+                this.renderTableau(t2, newCols, basis, "Tableau Iniziale FASE 2 (forma canonica ripristinata)");
+                this.runSimplex(t2, newCols, basis, false, prob, null);
+            }
+
+            printFinalSolution(tableau, cols, basis, prob) {
+                let rows = tableau.length;
+                let numCols = cols.length + 1;
+                
+                let zVal = tableau[0][numCols - 1];
+                if (!prob.isMax) zVal = -zVal; 
+                
+                this.log(`<h3>Soluzione Finale</h3>
+                          <p>Valore Ottimo (${prob.isMax ? 'MAX' : 'MIN'}) z = <b>${Number(zVal.toFixed(4))}</b></p>`);
+                
+                let html = `<ul>`;
+                cols.forEach((c) => {
+                    let val = 0;
+                    let rowIdx = basis.indexOf(c);
+                    if (rowIdx !== -1) {
+                        val = tableau[rowIdx + 1][numCols - 1];
+                    }
+                    html += `<li>${c} = ${Number(val.toFixed(4))}</li>`;
+                });
+                html += `</ul>`;
+                this.log(html);
+            }
+        }
+    </script>
+</body>
+</html>
