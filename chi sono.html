@@ -22,10 +22,10 @@
 
   <nav class="options">
     <div class="menu-links"></div>
-    <a href="index.html">Home</a>
-    <a href="chi sono.html" class="active">Chi sono</a>
-    <a href="foto.html">Foto</a>
-    <a href="progetti.html">Progetti</a>
+    <a href="index.html"><i class="fas fa-house menu-icon"></i>Home</a>
+    <a href="chi sono.html" class="active"><i class="fas fa-user menu-icon"></i>Chi sono</a>
+    <a href="foto.html"><i class="fas fa-camera menu-icon"></i>Foto</a>
+    <a href="progetti.html"><i class="fas fa-rocket menu-icon"></i>Progetti</a>
 
 <div class="menu-contacts">
       <span class="contacts-title">Contatti</span>
@@ -89,41 +89,56 @@
  </div>
 
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-    // 1. Attiva l'ingresso soft della pagina
-    document.body.classList.add('loaded');
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('loaded');
+      initMenu();
+      initScrollFade();
+    });
 
-    // 2. Gestione dei faders (il tuo codice esistente per lo scroll)
-    const faders = document.querySelectorAll('.fade-in');
-    const options = { threshold: 0.05, rootMargin: "0px 0px -20px 0px"};
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+    // --- MENU: chiusura al click fuori e con tasto Esc ---
+    function initMenu() {
+      const menuToggle = document.getElementById('menuToggle');
+      const menuButton = document.querySelector('.menu');
+      const optionsMenu = document.querySelector('.options');
+
+      if (!menuToggle || !menuButton || !optionsMenu) return;
+
+      document.addEventListener('click', (event) => {
+        if (menuToggle.checked) {
+          const target = event.target;
+          if (!optionsMenu.contains(target) && !menuButton.contains(target) && target !== menuToggle) {
+            menuToggle.checked = false;
+          }
         }
       });
-    }, options);
-    faders.forEach(fader => observer.observe(fader)); 
 
-    // 3. Close menu on outside click
-    const menuToggle = document.getElementById('menuToggle');
-    const menuButton = document.querySelector('.menu'); // The label acting as the button
-    const optionsMenu = document.querySelector('.options'); // The actual menu panel
-
-    document.addEventListener('click', function(event) {
-      // If the menu is open
-      if (menuToggle.checked) {
-        const target = event.target;
-
-        // Check if the click was outside the menu button AND outside the menu panel
-        // Also ensure the click wasn't directly on the hidden checkbox itself (though unlikely)
-        if (!optionsMenu.contains(target) && !menuButton.contains(target) && target !== menuToggle) {
-          menuToggle.checked = false; // Close the menu
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuToggle.checked) {
+          menuToggle.checked = false;
         }
-      }
-    });
-    });
- </script>
+      });
+    }
+
+    // --- EFFETTO CASCATA ALLO SCROLL ---
+    function initScrollFade() {
+      const items = document.querySelectorAll('.fade-in, .gallery-item, .project-card');
+      if (!items.length) return;
+
+      const observerOptions = { threshold: 0.1 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, (index % 3) * 100);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      items.forEach(item => observer.observe(item));
+    }
+  </script>
+
 </body>
 </html>

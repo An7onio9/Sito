@@ -178,6 +178,19 @@ p a:hover {
   transform: scale(1.1); 
 }
 
+/* Trasforma l'icona hamburger in una X quando il menu è aperto */
+#menuToggle:checked ~ .menu .hamburger:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+#menuToggle:checked ~ .menu .hamburger:nth-child(2) {
+  opacity: 0;
+}
+
+#menuToggle:checked ~ .menu .hamburger:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
 /* 1. Sposta il contenuto a sinistra di 300px (pari alla larghezza del menu) */
 #menuToggle:checked ~ #page-content {
   transform: translateX(-100px);
@@ -264,6 +277,14 @@ p a:hover {
   text-decoration: none;
   font-weight: 500;
   transition: 0.3s;
+}
+
+.options a i.menu-icon {
+  margin-right: 12px;
+  width: 18px;
+  text-align: center;
+  font-size: 0.85em;
+  opacity: 0.85;
 }
 
 .options a:hover {

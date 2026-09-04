@@ -9,7 +9,37 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
 </head>
 
-<body class="home-page"> <div id="page-content">
+<body class="home-page">
+  <!-- Menu -->
+  <input type="checkbox" id="menuToggle" class="menuToggle">
+  <label for="menuToggle" class="menu">
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+  </label>
+
+  <nav class="options">
+    <div class="menu-links"></div>
+    <a href="index.html" class="active"><i class="fas fa-house menu-icon"></i>Home</a>
+    <a href="chi sono.html"><i class="fas fa-user menu-icon"></i>Chi sono</a>
+    <a href="foto.html"><i class="fas fa-camera menu-icon"></i>Foto</a>
+    <a href="progetti.html"><i class="fas fa-rocket menu-icon"></i>Progetti</a>
+
+    <div class="menu-contacts">
+      <span class="contacts-title">Contatti</span>
+      <a href="mailto:acostantino2005@gmail.com" target="_blank" class="social-item">
+        <div class="icon-box"><i class="far fa-envelope"></i> Email</div>
+      </a>
+      <a href="https://www.linkedin.com/in/antonio-costantino-6b9562305/" target="_blank" class="social-item">
+        <div class="icon-box"><i class="fab fa-linkedin-in"></i> LinkedIn</div>
+      </a>
+      <a href="https://www.instagram.com/antonio_costantino05/" target="_blank" class="social-item">
+        <div class="icon-box"><i class="fab fa-instagram"></i> Instagram</div>
+      </a>
+    </div>
+  </nav>
+
+  <div id="page-content">
     
     <header class="home-header">
       <h1>Antonio <span>Costantino</span></h1>
@@ -64,23 +94,56 @@
     </footer>
   </div>
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-    // 1. Attiva l'ingresso soft della pagina
-    document.body.classList.add('loaded');
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('loaded');
+      initMenu();
+      initScrollFade();
+    });
 
-    // 2. Gestione dei faders (il tuo codice esistente per lo scroll)
-    const faders = document.querySelectorAll('.fade-in');
-    const options = { threshold: 0.05, rootMargin: "0px 0px -20px 0px"};
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+    // --- MENU: chiusura al click fuori e con tasto Esc ---
+    function initMenu() {
+      const menuToggle = document.getElementById('menuToggle');
+      const menuButton = document.querySelector('.menu');
+      const optionsMenu = document.querySelector('.options');
+
+      if (!menuToggle || !menuButton || !optionsMenu) return;
+
+      document.addEventListener('click', (event) => {
+        if (menuToggle.checked) {
+          const target = event.target;
+          if (!optionsMenu.contains(target) && !menuButton.contains(target) && target !== menuToggle) {
+            menuToggle.checked = false;
+          }
         }
       });
-    }, options);
-    faders.forEach(fader => observer.observe(fader));
-    });
- </script>
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuToggle.checked) {
+          menuToggle.checked = false;
+        }
+      });
+    }
+
+    // --- EFFETTO CASCATA ALLO SCROLL ---
+    function initScrollFade() {
+      const items = document.querySelectorAll('.fade-in, .gallery-item, .project-card');
+      if (!items.length) return;
+
+      const observerOptions = { threshold: 0.1 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, (index % 3) * 100);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      items.forEach(item => observer.observe(item));
+    }
+  </script>
+
 </body>
 </html>

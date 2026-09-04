@@ -21,10 +21,10 @@
 
   <nav class="options">
     <div class="menu-links"></div>
-    <a href="index.html">Home</a>
-    <a href="chi sono.html">Chi sono</a>
-    <a href="foto.html" class="active">Foto</a>
-    <a href="progetti.html">Progetti</a>
+    <a href="index.html"><i class="fas fa-house menu-icon"></i>Home</a>
+    <a href="chi sono.html"><i class="fas fa-user menu-icon"></i>Chi sono</a>
+    <a href="foto.html" class="active"><i class="fas fa-camera menu-icon"></i>Foto</a>
+    <a href="progetti.html"><i class="fas fa-rocket menu-icon"></i>Progetti</a>
 
 <div class="menu-contacts">
       <span class="contacts-title">Contatti</span>
@@ -70,7 +70,7 @@
     </section>
 
     <section class="gallery-grid">
-      <div class="gallery-item fade-in" data-category="foto" data-desc="Foto scattata durante il concertro per il 40° anniversario del Complesso Bandistico di Gissi.">
+      <div class="gallery-item fade-in" data-category="foto" data-desc="Foto scattata durante il concertro per il 40° anniversario del Complesso Bandistico di Gissi." tabindex="0" role="button" aria-label="Apri foto: Banda Gissi">
         <img src="png/banda.jpeg" class="img-top" alt="Banda Gissi">
         <div class="info">
           <h2>Banda Gissi</h2>
@@ -78,7 +78,7 @@
         </div>
       </div>
 
-       <div class="gallery-item fade-in" data-category="foto" data-desc="Foto scattata al Porto di Vasto.">
+       <div class="gallery-item fade-in" data-category="foto" data-desc="Foto scattata al Porto di Vasto." tabindex="0" role="button" aria-label="Apri foto: Macchina Porto">
         <img src="png/macchina porto.jpg" class="img-center" alt="Macchina Porto">
         <div class="info">
           <h2>Macchina Porto</h2>
@@ -86,7 +86,7 @@
         </div>
      </div>
 
-      <div class="gallery-item fade-in" data-category="foto" data-desc="Foto scattata a Gissi Vecchia, durante un tramonto invernale.">
+      <div class="gallery-item fade-in" data-category="foto natura" data-desc="Foto scattata a Gissi Vecchia, durante un tramonto invernale." tabindex="0" role="button" aria-label="Apri foto: Gissi">
         <img src="png/gissi.jpg" class="img-center" alt="Gissi">
         <div class="info">
           <h2>Gissi</h2>
@@ -186,7 +186,7 @@
 
   <div id="photoModal" class="modal">
     <div class="modal-content">
-      <span class="close-modal">&times;</span>
+      <span class="close-modal" tabindex="0" role="button" aria-label="Chiudi">&times;</span>
       <div class="photo-wrapper" style="position: relative;">
         <img id="modalImg" src="" alt="Foto Ingrandita" style="display: none;">
         <video id="modalVideo" controls controlsList="nodownload" oncontextmenu="return false;" style="display: none; width: 100%; max-height: 70vh; background: #000;"></video>
@@ -201,29 +201,57 @@
   </div>
 
   <script>
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-    
-    // Dopo 1 secondo ridiamo al contenitore la velocità scattante
-    setTimeout(() => {
-      document.getElementById('page-content').style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-    }, 1000); 
-  });
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('loaded');
+      initMenu();
+      initScrollFade();
+    });
 
-  // --- Chiusura Menu ---
-  const menuToggle = document.getElementById('menuToggle');
-  const menuButton = document.querySelector('.menu'); 
-  const optionsMenu = document.querySelector('.options'); 
+    // --- MENU: chiusura al click fuori e con tasto Esc ---
+    function initMenu() {
+      const menuToggle = document.getElementById('menuToggle');
+      const menuButton = document.querySelector('.menu');
+      const optionsMenu = document.querySelector('.options');
 
-  document.addEventListener('click', function(event) {
-    if (menuToggle.checked) {
-      const target = event.target;
-      if (!optionsMenu.contains(target) && !menuButton.contains(target) && target !== menuToggle) {
-        menuToggle.checked = false; 
-      }
+      if (!menuToggle || !menuButton || !optionsMenu) return;
+
+      document.addEventListener('click', (event) => {
+        if (menuToggle.checked) {
+          const target = event.target;
+          if (!optionsMenu.contains(target) && !menuButton.contains(target) && target !== menuToggle) {
+            menuToggle.checked = false;
+          }
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuToggle.checked) {
+          menuToggle.checked = false;
+        }
+      });
     }
-  });
 
+    // --- EFFETTO CASCATA ALLO SCROLL ---
+    function initScrollFade() {
+      const items = document.querySelectorAll('.fade-in, .gallery-item, .project-card');
+      if (!items.length) return;
+
+      const observerOptions = { threshold: 0.1 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, (index % 3) * 100);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      items.forEach(item => observer.observe(item));
+    }
+  </script>
+  <script>
   // --- VARIABILI MODALE ---
   const modal = document.getElementById("photoModal");
   const modalImg = document.getElementById("modalImg");
@@ -234,56 +262,74 @@ window.addEventListener('load', () => {
   const protectionOverlay = document.getElementById("protectionOverlay");
 
   // --- LOGICA APERTURA FOTO E VIDEO ---
+  let lastFocusedItem = null; // Ricorda quale elemento aveva il focus prima di aprire il modale
+
+  function openItem(item) {
+    const imgElement = item.querySelector('img');
+    const videoElement = item.querySelector('video');
+
+    // Cerca il titolo in h2 o h3 (alcuni elementi usano h2, altri h3)
+    const titleEl = item.querySelector('.info h2, .info h3');
+    const title = titleEl ? titleEl.innerText : "Senza Titolo";
+    const desc = item.getAttribute('data-desc') || "Nessuna descrizione disponibile.";
+
+    // Se ho aperto un Video
+    if (videoElement) {
+      const sourceUrl = videoElement.querySelector('source') ? videoElement.querySelector('source').src : videoElement.src;
+      modalVideo.src = sourceUrl;
+
+      modalVideo.style.display = "block"; // Mostra il video
+      modalImg.style.display = "none";    // Nascondi la foto
+      protectionOverlay.style.display = "none"; // Togli overlay per cliccare Play
+
+      modalVideo.play();
+    }
+    // Se ho aperto una Foto
+    else if (imgElement) {
+      modalImg.src = imgElement.src;
+
+      modalImg.style.display = "block";   // Mostra foto
+      modalVideo.style.display = "none";  // Nascondi video
+      modalVideo.pause();                 // Ferma eventuale audio
+
+      protectionOverlay.style.display = "block"; // Metti overlay protettivo
+
+      modalImg.classList.remove('landscape', 'portrait');
+      modalImg.onload = function() {
+        if (this.naturalWidth > this.naturalHeight) {
+          modalImg.classList.add('landscape');
+        } else {
+          modalImg.classList.add('portrait');
+        }
+      };
+    }
+
+    modalTitle.innerText = title;
+    modalDesc.innerText = desc;
+
+    // Animazione apertura
+    modal.scrollTop = 0; // Assicura che il modale inizi dall'alto
+    modal.style.display = "block";
+    modal.offsetHeight; // Forza lettura per CSS
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Blocca lo scorrimento della pagina principale
+
+    closeModal.focus(); // Sposta il focus sul pulsante di chiusura, utile per chi naviga da tastiera
+  }
+
   document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('click', function() {
-      const imgElement = this.querySelector('img');
-      const videoElement = this.querySelector('video');
-      
-      // Cerca il titolo in h2 o h3 (alcuni elementi usano h2, altri h3)
-      const titleEl = this.querySelector('.info h2, .info h3');
-      const title = titleEl ? titleEl.innerText : "Senza Titolo";
-      const desc = this.getAttribute('data-desc') || "Nessuna descrizione disponibile.";
+      lastFocusedItem = this;
+      openItem(this);
+    });
 
-      // Se ho cliccato su un Video
-      if (videoElement) {
-        const sourceUrl = videoElement.querySelector('source') ? videoElement.querySelector('source').src : videoElement.src;
-        modalVideo.src = sourceUrl;
-        
-        modalVideo.style.display = "block"; // Mostra il video
-        modalImg.style.display = "none";    // Nascondi la foto
-        protectionOverlay.style.display = "none"; // Togli overlay per cliccare Play
-        
-        modalVideo.play(); 
-      } 
-      // Se ho cliccato su una Foto
-      else if (imgElement) {
-        modalImg.src = imgElement.src;
-        
-        modalImg.style.display = "block";   // Mostra foto
-        modalVideo.style.display = "none";  // Nascondi video
-        modalVideo.pause();                 // Ferma eventuale audio
-        
-        protectionOverlay.style.display = "block"; // Metti overlay protettivo
-
-        modalImg.classList.remove('landscape', 'portrait');
-        modalImg.onload = function() {
-          if (this.naturalWidth > this.naturalHeight) {
-            modalImg.classList.add('landscape');
-          } else {
-            modalImg.classList.add('portrait');
-          }
-        };
+    // Apertura anche con tastiera (Invio o Spazio)
+    item.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault(); // Evita lo scroll della pagina con la barra spaziatrice
+        lastFocusedItem = this;
+        openItem(this);
       }
-
-      modalTitle.innerText = title;
-      modalDesc.innerText = desc;
-
-      // Animazione apertura
-      modal.scrollTop = 0; // Assicura che il modale inizi dall'alto
-      modal.style.display = "block"; 
-      modal.offsetHeight; // Forza lettura per CSS
-      modal.classList.add('show');
-      document.body.style.overflow = 'hidden'; // Blocca lo scorrimento della pagina principale
     });
   });
 
@@ -295,11 +341,29 @@ window.addEventListener('load', () => {
       modalVideo.pause(); // Stoppa il video
       modalVideo.currentTime = 0; // Azzera il video
       document.body.style.overflow = ''; // Ripristina lo scorrimento della pagina
-    }, 400); 
+
+      // Riporta il focus sull'elemento che aveva aperto il modale
+      if (lastFocusedItem) {
+        lastFocusedItem.focus();
+      }
+    }, 400);
   }
 
-  closeModal.onclick = hideModal;
+  closeModal.addEventListener('click', hideModal);
+  closeModal.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault();
+      hideModal();
+    }
+  });
   window.onclick = (e) => { if (e.target == modal) hideModal(); };
+
+  // Chiudi il modale con il tasto Esc, se è aperto
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal.classList.contains('show')) {
+      hideModal();
+    }
+  });
 
   // --- PROTEZIONE TASTO DESTRO E TASTIERA ---
   document.addEventListener('contextmenu', event => event.preventDefault());
@@ -340,25 +404,6 @@ window.addEventListener('load', () => {
           }, 400);
         }
       });
-    });
-  });
-
-  // --- EFFETTO CASCATA SCROLL ---
-  document.addEventListener('DOMContentLoaded', () => {
-    const observerOptions = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, index % 3 * 100); 
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      observer.observe(item);
     });
   });
  </script>
