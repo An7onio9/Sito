@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Antonio Costantino | Foto</title>
+  <meta name="description" content="Foto e riprese aeree con drone DJI Mini 3 Pro: borghi, eventi, mare e territorio. Contattami per richiedere un lavoro.">
+  <meta property="og:title" content="Antonio Costantino | Foto e Video aerei">
+  <meta property="og:description" content="Foto e riprese aeree con drone per valorizzare il territorio.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://sito-pi-lilac.vercel.app/png/gissi.jpg">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
@@ -44,7 +49,7 @@
     
   <section class="hero-banner">
   <div class="hero-overlay"></div>
-  <img src="png/gissi.jpg" alt="Drone View Gissi" class="hero-img">
+  <img src="png/gissi.jpg" alt="Veduta aerea di Gissi al crepuscolo" class="hero-img">
   <div class="hero-text">
     <h1>Foto & Video</h1>
     <p>La Terra vista da un'altra prospettiva</p>
@@ -60,142 +65,155 @@
     </p>
     <div class="intro-line"></div>
   </div>
+    <a class="credential-badge" href="chi%20sono.html">
+      <i class="fas fa-circle-check"></i>
+      <span>Pilota UAS certificato &middot; categoria Open A1-A3 &middot; assicurato</span>
+    </a>
   </section>
 
     <section class="filter-bar">
       <button class="filter-btn active" data-filter="all">Tutti</button>
       <button class="filter-btn" data-filter="foto">Foto</button>
       <button class="filter-btn" data-filter="video">Video</button>
-      <button class="filter-btn" data-filter="natura">Natura</button>
+      <button class="filter-btn" data-filter="borghi">Borghi e territorio</button>
+      <button class="filter-btn" data-filter="eventi">Eventi</button>
     </section>
 
     <section class="gallery-grid">
-      <div class="gallery-item fade-in" data-category="foto" data-desc="Foto scattata durante il concertro per il 40° anniversario del Complesso Bandistico di Gissi." tabindex="0" role="button" aria-label="Apri foto: Banda Gissi">
-        <img src="png/banda.jpeg" class="img-top" alt="Banda Gissi">
+      <div class="gallery-item fade-in" data-category="foto eventi" data-desc="Foto scattata durante il concerto per il 40° anniversario del Complesso Bandistico di Gissi." tabindex="0" role="button" aria-label="Apri foto: Banda Gissi">
+        <img src="png/banda.jpeg" loading="lazy" decoding="async" class="img-top" alt="Il Complesso Bandistico di Gissi durante il concerto per il 40° anniversario">
         <div class="info">
-          <h2>Banda Gissi</h2>
-          <p>Antonio</p>
+          <h3>Banda Gissi</h3>
+          <p>Gissi · Evento</p>
         </div>
       </div>
 
-       <div class="gallery-item fade-in" data-category="foto" data-desc="Foto scattata al Porto di Vasto." tabindex="0" role="button" aria-label="Apri foto: Macchina Porto">
-        <img src="png/macchina porto.jpg" class="img-center" alt="Macchina Porto">
+       <div class="gallery-item fade-in" data-category="foto borghi" data-desc="Foto scattata al Porto di Vasto." tabindex="0" role="button" aria-label="Apri foto: Macchina Porto">
+        <img src="png/macchina porto.jpg" loading="lazy" decoding="async" class="img-center" alt="Auto al Porto di Vasto vista dall'alto">
         <div class="info">
-          <h2>Macchina Porto</h2>
-          <p>Antonio</p>
+          <h3>Macchina Porto</h3>
+          <p>Porto di Vasto · Foto</p>
         </div>
      </div>
 
-      <div class="gallery-item fade-in" data-category="foto natura" data-desc="Foto scattata a Gissi Vecchia, durante un tramonto invernale." tabindex="0" role="button" aria-label="Apri foto: Gissi">
-        <img src="png/gissi.jpg" class="img-center" alt="Gissi">
+      <div class="gallery-item fade-in" data-category="foto borghi" data-desc="Foto scattata a Gissi Vecchia, durante un tramonto invernale." tabindex="0" role="button" aria-label="Apri foto: Gissi">
+        <img src="png/gissi.jpg" loading="lazy" decoding="async" class="img-center" alt="Gissi Vecchia al tramonto in inverno">
         <div class="info">
-          <h2>Gissi</h2>
-          <p>Antonio</p>
+          <h3>Gissi</h3>
+          <p>Gissi Vecchia · Tramonto invernale</p>
         </div>
       </div>
       
-<div class="gallery-item fade-in" data-category="video" data-desc="Corso di Gissi">
-  <video preload="metadata" playsinline poster="png/cover/cover_corso.PNG">
-    <source src="png/corso gissi.MOV " class="img-bottom" alt="corso Gissi">
+<div class="gallery-item fade-in" data-category="video borghi" data-desc="Ripresa aerea del corso di Gissi.">
+  <video muted loop preload="metadata" playsinline poster="png/cover/cover_corso.PNG">
+    <source src="png/corso gissi.MOV" type="video/quicktime">
   </video>
    <div class="badge">00:25</div>
   <div class="info">
-    <h2>Corso Di Gissi</h2>
-    <p>Antonio</p>
+    <h3>Corso di Gissi</h3>
+          <p>Gissi · Video</p>
   </div>
 </div> 
 
-      <div class="gallery-item fade-in" data-category="video" data-desc="Video girato verso il porto di Vasto, durante un tramonto.">
-        <video preload="metadata" playsinline poster="png/cover/cover_strada.PNG">   
-          <source src="png/macchina rettilineo porto.MOV" class="img-bottom" alt="">
+      <div class="gallery-item fade-in" data-category="video borghi" data-desc="Video girato verso il porto di Vasto, durante un tramonto.">
+        <video muted loop preload="metadata" playsinline poster="png/cover/cover_strada.PNG">   
+          <source src="png/macchina rettilineo porto.MOV" type="video/quicktime">
         </video>
            <div class="badge">00:28</div>
         <div class="info">
-          <h2>Rettilineo Porto</h2>
-          <p>Antonio</p>
+          <h3>Rettilineo Porto</h3>
+          <p>Porto di Vasto · Tramonto</p>
         </div>
       </div>
 
-      <div class="gallery-item fade-in" data-category="video" data-desc="">
-        <video preload="metadata" playsinline poster="png/cover/cover_nuvole.PNG">   
-          <source src="png/Gissi tra le nuvole.MOV" class="img-bottom" alt="">
+      <div class="gallery-item fade-in" data-category="video borghi" data-desc="Ripresa aerea di Gissi tra le nuvole.">
+        <video muted loop preload="metadata" playsinline poster="png/cover/cover_nuvole.PNG">   
+          <source src="png/Gissi tra le nuvole.MOV" type="video/quicktime">
         </video>
          <div class="badge">00:39</div>
         <div class="info">
-          <h2>Gissi tra le nuvole</h2>
-          <p>Antonio</p>
+          <h3>Gissi tra le nuvole</h3>
+          <p>Gissi · Video</p>
         </div>
       </div>
 
-          <div class="gallery-item fade-in" data-category="video natura" data-desc="">
-        <video preload="metadata" playsinline poster="png/cover/cover_nave.PNG">   
-          <source src="png/nave mare.mp4" class="img-bottom" alt="">
+          <div class="gallery-item fade-in" data-category="video borghi" data-desc="Ripresa aerea di una nave in mare.">
+        <video muted loop preload="metadata" playsinline poster="png/cover/cover_nave.PNG">   
+          <source src="png/nave mare.mp4" type="video/mp4">
         </video>
            <div class="badge">00:09</div>
         <div class="info">
-          <h2>Nave mare</h2>
-          <p>Antonio</p>
+          <h3>Nave in mare</h3>
+          <p>Mare · Video</p>
         </div>
       </div>
 
-        <div class="gallery-item fade-in" data-category="video natura" data-desc="">
-        <video preload="metadata" playsinline poster="png/cover/cover_pres.PNG">  
-          <source src="png/santalupres.mp4" class="img-bottom" alt="">
+        <div class="gallery-item fade-in" data-category="video" data-desc="">
+        <video muted loop preload="metadata" playsinline poster="png/cover/cover_pres.PNG">  
+          <source src="png/santalupres.mp4" type="video/mp4">
         </video>
            <div class="badge">00:38</div>
         <div class="info">
-          <h2>Presentazione Santalù</h2>
-          <p>Antonio</p>
+          <h3>Presentazione Santalù</h3>
+          <p>Santalù · Video</p>
         </div>
       </div>
 
         <div class="gallery-item fade-in" data-category="video" data-desc="">
-        <video preload="metadata" playsinline poster="png/cover/cover_man.PNG">  
-          <source src="png/manst.mp4" class="img-bottom" alt="">
+        <video muted loop preload="metadata" playsinline poster="png/cover/cover_man.PNG">  
+          <source src="png/manst.mp4" type="video/mp4">
         </video>
            <div class="badge">00:44</div>
         <div class="info">
-          <h2>Man Stewart Santalù</h2>
-          <p>Antonio</p>
+          <h3>Man Stewart Santalù</h3>
+          <p>Santalù · Video</p>
         </div>
       </div>
 
         <div class="gallery-item fade-in" data-category="video" data-desc="">
-        <video preload="metadata" playsinline poster="png/cover/cover_dante.PNG">  
-          <source src="png/dantesl.mp4" class="img-bottom" alt="">
+        <video muted loop preload="metadata" playsinline poster="png/cover/cover_dante.PNG">  
+          <source src="png/dantesl.mp4" type="video/mp4">
         </video>
            <div class="badge">00:21</div>
         <div class="info">
-          <h2>DanteB Santalù</h2>
-          <p>Antonio</p>
+          <h3>DanteB Santalù</h3>
+          <p>Santalù · Video</p>
         </div>
       </div>
 
-        <div class="gallery-item fade-in" data-category="video" data-desc="">
-        <video preload="metadata" playsinline poster="png/cover/cover_raduno.PNG">   
-          <source src="png/raduno.mp4" class="img-bottom" alt="">
+        <div class="gallery-item fade-in" data-category="video eventi" data-desc="Riprese del raduno di auto e moto d'epoca.">
+        <video muted loop preload="metadata" playsinline poster="png/cover/cover_raduno.PNG">   
+          <source src="png/raduno.mp4" type="video/mp4">
         </video>
            <div class="badge">00:20</div>
         <div class="info">
-          <h2>Raduno Auto e Moto d'epoca</h2>
-          <p>Antonio</p>
+          <h3>Raduno auto e moto d'epoca</h3>
+          <p>Evento · Video</p>
+        </div>
+      </div>
+
+        <div class="gallery-item fade-in" data-category="foto borghi" data-desc="Veduta aerea del paese di Gissi." tabindex="0" role="button" aria-label="Apri foto: Paese di Gissi">
+        <img src="png/gissifoto.jpeg" loading="lazy" decoding="async" class="img-top" alt="Veduta aerea del paese di Gissi">
+        <div class="info">
+          <h3>Gissi paese</h3>
+          <p>Gissi · Foto</p>
         </div>
       </div>
 
     </section>
 
-    <div class="more-to-come">
-  <div class="dots-animation">
-    <span></span><span></span><span></span>
-  </div>
-  <h3>More to come...</h3>
-  <p>Nuovi scatti e riprese aeree sono in fase di montaggio.</p>
-</div>
+    <section class="cta-block">
+      <h3>Ti serve uno scatto o una ripresa?</h3>
+      <p>Foto e riprese aeree con drone. Scrivimi per richiedere un lavoro.</p>
+      <a class="cta-btn" href="mailto:acostantino2005@gmail.com?subject=Richiesta%20lavoro">Contattami</a>
+    </section>
 
     <div class="copyright">&copy; 2026 | Antonio Costantino</div>
   </div>
 
   <div id="photoModal" class="modal">
+    <button class="modal-nav prev" id="modalPrev" aria-label="Precedente">&#10094;</button>
+    <button class="modal-nav next" id="modalNext" aria-label="Successivo">&#10095;</button>
     <div class="modal-content">
       <span class="close-modal" tabindex="0" role="button" aria-label="Chiudi">&times;</span>
       <div class="photo-wrapper" style="position: relative;">
@@ -376,14 +394,8 @@
     }
   });
 
-  // --- PROTEZIONE TASTO DESTRO E TASTIERA ---
-  document.addEventListener('contextmenu', event => event.preventDefault());
-  document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && (e.key === 's' || e.key === 'u' || e.key === 'p')) {
-      e.preventDefault();
-      alert("Download non consentito.");
-    }
-  });
+  // Deterrente leggero solo sulle immagini (la vera protezione sono watermark e bassa risoluzione)
+  document.querySelectorAll('.gallery-item img, #modalImg').forEach(el => el.addEventListener('contextmenu', e => e.preventDefault()));
 
   // --- FILTRO GALLERIA ---
   const filterButtons = document.querySelectorAll('.filter-btn');
@@ -393,30 +405,75 @@
     btn.addEventListener('click', () => {
       filterButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       const filter = btn.getAttribute('data-filter');
 
       galleryItems.forEach(item => {
         const categories = (item.getAttribute('data-category') || '').split(' ');
         const show = filter === 'all' || categories.includes(filter);
-
+        item.classList.toggle('filter-hidden', !show);
         if (show) {
-          item.style.display = '';
-          // Forziamo il reflow prima di togliere la classe, per far partire la transizione
-          requestAnimationFrame(() => {
-            item.classList.remove('filter-hidden');
-          });
-        } else {
-          item.classList.add('filter-hidden');
-          setTimeout(() => {
-            if (item.classList.contains('filter-hidden')) {
-              item.style.display = 'none';
-            }
-          }, 400);
+          item.classList.add('visible');
+          item.classList.remove('filter-show');
+          void item.offsetWidth; // riavvia l'animazione
+          item.classList.add('filter-show');
         }
       });
     });
   });
  </script>
+<script>
+  // --- Revisione: navigazione modale, richiesta via mail, anteprima video ---
+  let currentItem = null;
+  const modalPrev = document.getElementById('modalPrev');
+  const modalNext = document.getElementById('modalNext');
+  const baseOpenItem = openItem;
+
+  const visibleItems = () => [...document.querySelectorAll('.gallery-item')]
+    .filter(i => i.style.display !== 'none' && !i.classList.contains('filter-hidden'));
+
+  openItem = function (item) {
+    baseOpenItem(item);
+    currentItem = item;
+    lastFocusedItem = item;
+    const titleEl = item.querySelector('.info h3');
+    const title = titleEl ? titleEl.innerText : '';
+    const desc = item.getAttribute('data-desc') || '';
+    modalDesc.innerText = desc;
+    modalDesc.style.display = desc ? '' : 'none';
+    const many = visibleItems().length > 1;
+    modalPrev.style.display = modalNext.style.display = many ? 'flex' : 'none';
+  };
+
+  function step(dir) {
+    const list = visibleItems();
+    if (list.length < 2) return;
+    const i = list.indexOf(currentItem);
+    openItem(list[(i + dir + list.length) % list.length]);
+  }
+  modalPrev.addEventListener('click', () => step(-1));
+  modalNext.addEventListener('click', () => step(1));
+  document.addEventListener('keydown', e => {
+    if (!modal.classList.contains('show')) return;
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  // I video diventano accessibili da tastiera come le foto
+  document.querySelectorAll('.gallery-item:not([tabindex])').forEach(i => {
+    i.tabIndex = 0; i.setAttribute('role', 'button');
+    const t = i.querySelector('.info h3');
+    i.setAttribute('aria-label', 'Riproduci video: ' + (t ? t.innerText : ''));
+  });
+
+  // Anteprima muta al passaggio del mouse (solo dispositivi con hover)
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.gallery-item video').forEach(v => {
+      v.muted = true;
+      const card = v.closest('.gallery-item');
+      card.addEventListener('mouseenter', () => { v.play().catch(() => {}); });
+      card.addEventListener('mouseleave', () => { v.pause(); v.currentTime = 0; });
+    });
+  }
+  </script>
 </body>
 </html>

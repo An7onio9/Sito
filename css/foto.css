@@ -495,3 +495,97 @@ body.loaded #page-content {
 
 
 
+
+/* ===== REVISIONE ===== */
+/* Titolo e luogo sempre visibili sulle card */
+.info { opacity: 1; transform: none; padding: 50px 15px 14px; }
+.info h3 { font-size: 1.05rem; }
+
+/* Hover uguale per foto e video, senza scurire l'immagine */
+.gallery-item:hover img,
+.gallery-item:hover video { transform: scale(1.05); filter: none; }
+.gallery-item:focus-visible { outline: 2px solid #4f8cff; outline-offset: 3px; }
+
+/* Icona play sui video */
+.gallery-item[data-category~="video"]::after {
+  content: "\25B6";
+  position: absolute; top: 50%; left: 50%;
+  width: 54px; height: 54px; margin: -27px 0 0 -27px;
+  box-sizing: border-box; padding-left: 4px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: rgba(0,0,0,0.55); color: #fff; font-size: 1.2rem;
+  pointer-events: none; z-index: 5; transition: opacity 0.3s ease;
+}
+.gallery-item[data-category~="video"]:hover::after { opacity: 0; }
+
+/* Frecce del modale */
+.modal-nav {
+  position: fixed; top: 50%; transform: translateY(-50%); z-index: 3200;
+  width: 48px; height: 48px; border-radius: 50%;
+  display: none; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5);
+  color: #fff; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease;
+}
+.modal-nav:hover { color: #4f8cff; border-color: #4f8cff; }
+.modal-nav.prev { left: 20px; }
+.modal-nav.next { right: 20px; }
+@media (max-width: 768px) {
+  .modal-nav { width: 40px; height: 40px; }
+  .modal-nav.prev { left: 6px; }
+  .modal-nav.next { right: 6px; }
+}
+
+/* Pulsanti di richiesta */
+.modal-cta, .cta-btn {
+  display: inline-block; padding: 11px 26px; border-radius: 50px;
+  background: #4f8cff; color: #fff; font-family: 'Poppins', sans-serif;
+  font-weight: 600; font-size: 0.9rem;
+}
+.modal-cta { margin-top: 18px; }
+.modal-cta:hover, .cta-btn:hover { background: #3a6fd8; color: #fff; }
+
+/* Invito a contattare (al posto di "More to come") */
+.cta-block {
+  text-align: center; padding: 70px 20px 80px; margin-top: -40px;
+  background: linear-gradient(to bottom, transparent, rgba(79, 140, 255, 0.06));
+}
+.cta-block h3 { font-size: 1.8rem; color: #4f8cff; margin: 0 0 10px; }
+.cta-block p { margin: 0 auto 26px; color: rgba(255,255,255,0.7); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item, .gallery-item img, .gallery-item video { transition: none; }
+}
+
+/* ===== FILTRI: dimensioni uniformi ===== */
+/* minmax(0,1fr): le colonne restano sempre uguali, qualunque sia il contenuto mostrato */
+.gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1024px) { .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px)  { .gallery-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Elemento escluso dal filtro: sparisce subito, senza stati intermedi (niente scala) */
+.gallery-item.filter-hidden { display: none !important; }
+
+/* Elemento che torna visibile: semplice dissolvenza */
+.gallery-item.filter-show { animation: filterIn 0.4s ease-out; }
+@keyframes filterIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ===== FIX LARGHEZZA GRIGLIA ===== */
+/* #page-content è un contenitore flex in colonna: con margin auto la griglia si
+   adattava al contenuto mostrato (e quindi cambiava larghezza coi filtri).
+   Con width:100% ha sempre la stessa larghezza. */
+.gallery-grid {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1480px;
+}
+
+/* ===== BADGE ABILITAZIONE DRONE ===== */
+.credential-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 28px; padding: 9px 20px; border-radius: 50px;
+  border: 1px solid rgba(111, 191, 109, 0.5);
+  background: rgba(111, 191, 109, 0.1);
+  color: #fff; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 400;
+}
+.credential-badge i { color: #6fbf6d; }
+.credential-badge:hover { color: #fff; border-color: #6fbf6d; }
