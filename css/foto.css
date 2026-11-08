@@ -619,3 +619,11 @@ body.loaded #page-content {
   .modal-nav.next { right: 16px; }
   .modal-content { margin-bottom: 70px; }
 }
+
+/* ===== TITOLI CARD IN BIANCO ===== */
+.info h3 {
+  color: #fff;
+  letter-spacing: 0.3px;
+  font-size: 1.1rem;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
