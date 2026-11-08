@@ -148,7 +148,7 @@
         </div>
       </div>
 
-        <div class="gallery-item fade-in" data-category="video eventi" data-desc="">
+        <div class="gallery-item fade-in" data-category="video eventi" data-desc="Ripresa per presentare la zona che ospiterà l'evento di Santalù">
         <video muted loop preload="metadata" playsinline poster="png/cover/cover_pres.PNG">  
           <source src="png/santalupres.mp4" type="video/mp4">
         </video>
@@ -159,7 +159,7 @@
         </div>
       </div>
 
-        <div class="gallery-item fade-in" data-category="video eventi" data-desc="">
+        <div class="gallery-item fade-in" data-category="video eventi" data-desc="Ripresa dei Man Stewart all'evento di Santalù">
         <video muted loop preload="metadata" playsinline poster="png/cover/cover_man.PNG">  
           <source src="png/manst.mp4" type="video/mp4">
         </video>
@@ -170,7 +170,7 @@
         </div>
       </div>
 
-        <div class="gallery-item fade-in" data-category="video eventi" data-desc="">
+        <div class="gallery-item fade-in" data-category="video eventi" data-desc="Ripresa di DanteB all'evento di Santalù">
         <video muted loop preload="metadata" playsinline poster="png/cover/cover_dante.PNG">  
           <source src="png/dantesl.mp4" type="video/mp4">
         </video>
@@ -193,7 +193,7 @@
       </div>
 
         <div class="gallery-item fade-in" data-category="foto borghi" data-desc="Veduta aerea del paese di Gissi." tabindex="0" role="button" aria-label="Apri foto: Paese di Gissi">
-        <img src="png/fotogissi.jpeg" loading="lazy" decoding="async" class="img-top" alt="Veduta aerea del paese di Gissi">
+        <img src="png/fotogissi.jpeg" loading="lazy" decoding="async" class="img-center" alt="Veduta aerea del paese di Gissi">
         <div class="info">
           <h3>Gissi paese</h3>
           <p>Gissi · Foto</p>
@@ -218,7 +218,7 @@
       <span class="close-modal" tabindex="0" role="button" aria-label="Chiudi">&times;</span>
       <div class="photo-wrapper" style="position: relative;">
         <img id="modalImg" src="" alt="Foto Ingrandita" style="display: none;">
-        <video id="modalVideo" controls controlsList="nodownload" oncontextmenu="return false;" style="display: none; width: 100%; max-height: 70vh; background: #000;"></video>
+        <video id="modalVideo" controls playsinline controlsList="nodownload" oncontextmenu="return false;" style="display: none; width: 100%; max-height: 70vh; background: #000;"></video>
         
         <div class="protection-overlay" id="protectionOverlay"></div>
       </div> 
@@ -474,6 +474,17 @@
       card.addEventListener('mouseleave', () => { v.pause(); v.currentTime = 0; });
     });
   }
+  // Swipe sinistra/destra nel modale (telefono); ignorato sul video per non interferire coi controlli
+  let touchX = null;
+  modal.addEventListener('touchstart', e => {
+    touchX = e.target.closest('video') ? null : e.touches[0].clientX;
+  }, { passive: true });
+  modal.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) > 60) step(dx < 0 ? 1 : -1);
+  }, { passive: true });
   </script>
 </body>
 </html>

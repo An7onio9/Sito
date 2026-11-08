@@ -589,3 +589,33 @@ body.loaded #page-content {
 }
 .credential-badge i { color: #6fbf6d; }
 .credential-badge:hover { color: #fff; border-color: #6fbf6d; }
+
+/* ===== VERSIONE TELEFONO ===== */
+/* Sui dispositivi touch l'hover "resta attaccato" dopo il tocco: lo annulliamo */
+@media (hover: none) {
+  .gallery-item:hover img,
+  .gallery-item:hover video { transform: none; filter: none; }
+  .gallery-item[data-category~="video"]:hover::after { opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  /* Pulsanti filtro più facili da toccare */
+  .filter-btn { padding: 10px 16px; }
+
+  /* Badge abilitazione: testo su più righe senza forma a pillola deformata */
+  .credential-badge {
+    font-size: 0.8rem; line-height: 1.4; text-align: center;
+    border-radius: 18px; padding: 10px 16px; max-width: 100%; box-sizing: border-box;
+  }
+
+  .cta-block { padding: 50px 20px 60px; }
+  .cta-block h3 { font-size: 1.4rem; }
+}
+
+@media (max-width: 768px) {
+  /* Frecce del modale in basso, fuori dalla foto; il resto si naviga con lo swipe */
+  .modal-nav { top: auto; bottom: 16px; transform: none; width: 44px; height: 44px; background: rgba(0,0,0,0.7); }
+  .modal-nav.prev { left: 16px; }
+  .modal-nav.next { right: 16px; }
+  .modal-content { margin-bottom: 70px; }
+}
