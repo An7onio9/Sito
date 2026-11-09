@@ -214,6 +214,7 @@
   <div id="photoModal" class="modal">
     <button class="modal-nav prev" id="modalPrev" aria-label="Precedente">&#10094;</button>
     <button class="modal-nav next" id="modalNext" aria-label="Successivo">&#10095;</button>
+    <span class="modal-counter" id="modalCounter"></span>
     <div class="modal-content">
       <span class="close-modal" tabindex="0" role="button" aria-label="Chiudi">&times;</span>
       <div class="photo-wrapper" style="position: relative;">
@@ -440,8 +441,10 @@
     const desc = item.getAttribute('data-desc') || '';
     modalDesc.innerText = desc;
     modalDesc.style.display = desc ? '' : 'none';
-    const many = visibleItems().length > 1;
+    const list = visibleItems();
+    const many = list.length > 1;
     modalPrev.style.display = modalNext.style.display = many ? 'flex' : 'none';
+    document.getElementById('modalCounter').textContent = many ? (list.indexOf(item) + 1) + ' / ' + list.length : '';
   };
 
   function step(dir) {
@@ -485,6 +488,17 @@
     touchX = null;
     if (Math.abs(dx) > 60) step(dx < 0 ? 1 : -1);
   }, { passive: true });
+
+  // Link diretti ai filtri (es. foto.html#eventi)
+  (function () {
+    const wanted = location.hash.slice(1);
+    if (!wanted) return;
+    const btn = [...document.querySelectorAll('.filter-btn')].find(b => b.dataset.filter === wanted);
+    if (!btn) return;
+    btn.click();
+    const bar = document.querySelector('.filter-bar');
+    if (bar) setTimeout(() => bar.scrollIntoView({ behavior: 'smooth', block: 'center' }), 600);
+  })();
   </script>
 </body>
 </html>

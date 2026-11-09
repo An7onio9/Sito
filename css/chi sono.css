@@ -148,3 +148,21 @@ body.loaded {
 .box:nth-child(3) { transition-delay: 0.3s; }
 .box:nth-child(4) { transition-delay: 0.4s; }
 
+/* --- Invito finale --- */
+.cta-block {
+  text-align: center;
+  padding: 60px 20px 70px;
+  background: linear-gradient(to bottom, transparent, rgba(79, 140, 255, 0.06));
+}
+.cta-block h3 { font-size: 1.8rem; color: #4f8cff; margin: 0 0 10px; }
+.cta-block p { margin: 0 auto 26px; color: rgba(255,255,255,0.7); }
+.cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.cta-btn {
+  display: inline-block; padding: 11px 26px; border-radius: 50px;
+  background: #4f8cff; border: 1px solid #4f8cff; color: #fff;
+  font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.9rem;
+}
+.cta-btn:hover { background: #3a6fd8; border-color: #3a6fd8; color: #fff; }
+.cta-btn.secondary { background: transparent; color: rgba(255,255,255,0.85); border-color: rgba(79,140,255,0.5); }
+.cta-btn.secondary:hover { background: transparent; border-color: #4f8cff; color: #fff; }
+@media (max-width: 600px) { .cta-block h3 { font-size: 1.4rem; } }

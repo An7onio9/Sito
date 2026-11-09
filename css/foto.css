@@ -627,3 +627,36 @@ body.loaded #page-content {
   font-size: 1.1rem;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
 }
+
+/* ===== MODALE SU TELEFONO: frecce e chiusura fuori dal contenuto ===== */
+.modal-counter { display: none; }
+
+/* Sul touch l'hover resta attaccato dopo il tocco: nessun bordo blu fisso sulle frecce */
+@media (hover: none) {
+  .modal-nav:hover { color: #fff; border-color: rgba(255, 255, 255, 0.2); }
+  .close-modal:hover { color: #fff; transform: none; }
+}
+
+@media (max-width: 768px) {
+  /* Spazio riservato in basso per frecce e contatore: non coprono più il testo */
+  .modal { padding-bottom: 76px; }
+  .modal-content { margin-bottom: 10px; padding-top: 54px; }
+
+  /* La X sta in una fascia sopra il video, non sopra i suoi comandi */
+  .close-modal { top: 8px; right: 8px; }
+
+  /* Video e foto più bassi, così titolo e descrizione si vedono senza scorrere */
+  #modalVideo,
+  .modal-content img,
+  #modalImg.portrait {
+    max-height: 52vh !important;
+    max-height: 52svh !important;
+  }
+
+  .modal-nav { bottom: 16px; }
+  .modal-counter {
+    display: block; position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    z-index: 3200; color: rgba(255, 255, 255, 0.85);
+    font-family: 'Inter', sans-serif; font-size: 0.9rem; letter-spacing: 1px;
+  }
+}

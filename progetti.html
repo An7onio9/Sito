@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Antonio Costantino | Progetti</title>
+  <meta name="description" content="Progetti di Antonio Costantino: produzione video e riprese aeree con drone, sviluppo web e software.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
@@ -48,8 +49,94 @@
     </header>
 
     <section class="projects-container">
-      
-      <article class="project-card fade-in">
+
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">Tutti</button>
+        <button class="filter-btn" data-filter="video">Foto e video</button>
+        <button class="filter-btn" data-filter="sviluppo">Sviluppo</button>
+      </div>
+
+      <article class="project-card fade-in" data-category="video">
+        <div class="project-icon drone-icon">
+          <i class="fas fa-newspaper"></i>
+        </div>
+        <div class="project-content">
+          <h3>Foto pubblicate su VastoWeb</h3>
+          <div class="tech-tags">
+            <span class="tag">Foto aeree</span>
+            <span class="tag">UAS</span>
+            <span class="tag">Pubblicazione</span>
+            <span class="tag">Collaborazione</span>
+          </div>
+          <p>Servizi fotografici aerei con drone realizzati in collaborazione con il perito industriale Riccardo Tittaferrante e pubblicati su VastoWeb a corredo dei suoi articoli sul territorio: il futuro industriale della Val Sinello e il progetto Hydrogen Valley di Gissi, e il collegamento tra la Fondovalle Sinello e l'Alto Vastese.</p>
+          <div class="project-links">
+            <a href="https://vastoweb.com/2026/10/lavoro-ed-economia/perdere-lhydrogen-valley-della-val-sinello-e-una-sconfitta-per-il-territorio/" target="_blank" rel="noopener" class="project-link">
+              Hydrogen Valley, Val Sinello <i class="fas fa-arrow-up-right-from-square"></i>
+            </a>
+            <a href="https://vastoweb.com/2026/10/apertura/dalla-fondovalle-sinello-al-viadotto-sente-tittaferrante-riapre-il-dibattito-sul-collegamento-che-avrebbe-potuto-cambiare-lalto-vastese/" target="_blank" rel="noopener" class="project-link">
+              Fondovalle Sinello e viadotto Sente <i class="fas fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card fade-in" data-category="video">
+        <div class="project-icon video-icon">
+          <i class="fas fa-industry"></i>
+        </div>
+        <div class="project-content">
+          <h3>Riprese per CMW - Wiking Group</h3>
+          <div class="tech-tags">
+            <span class="tag">Riprese</span>
+            <span class="tag">Video aziendale</span>
+          </div>
+          <p>Riprese video realizzate per l'azienda CMW - Wiking Group. Mi sono occupato delle sole riprese.</p>
+          <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTU3OTg3ODQyODkwNzM3?story_media_id=3901344750418806907&amp;mdxt=MWhqbG1zdHJmeHk3OA==" target="_blank" rel="noopener" class="project-link">
+            Guarda il video su Instagram <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="project-card fade-in" data-category="video">
+        <div class="project-icon video-icon">
+          <i class="fas fa-video"></i>
+        </div>
+        <div class="project-content">
+          <h3>Riprese per l'evento Santalù</h3>
+          <div class="tech-tags">
+            <span class="tag">UAS Footage</span>
+            <span class="tag">Eventi</span>
+            <span class="tag">Pianificazione</span>
+          </div>
+          <p>Riprese realizzate per l'evento Santalù, articolate in tre giornate e pianificate nei dettagli: la prima per presentare il luogo dell'evento, la seconda per mostrare come raggiungerlo, la terza per documentare l'intera giornata dell'evento. I video sono stati pubblicati dal profilo dell'evento.</p>
+          <a href="foto.html#eventi" class="project-link">
+            Guarda i video nella galleria <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="project-card fade-in" data-category="video">
+        <div class="project-icon video-icon">
+          <i class="fas fa-film"></i>
+        </div>
+        <div class="project-content">
+          <h3>Video Production: Fiera imprese simulate</h3>
+          <div class="tech-tags">
+            <span class="tag">Video Editing</span>
+            <span class="tag">UAS Footage</span>
+            <span class="tag">Fast Delivery</span>
+          </div>
+          <p>Progetto realizzato in 72 ore per far scoprire il territorio di Gissi nella <strong>XII fiera internazionale delle imprese simulate</strong>.
+            Ho gestito l'intero processo: dalla pianificazione delle riprese sul campo alla post-produzione,
+            ottimizzando il montaggio per rispettare il limite temporale imposto dalla fiera.
+            Il lavoro al termine della giornata ha ricevuto molti feedback positivi.</p>
+          <a href="https://www.youtube.com/watch?v=VzoTzIW2QZ8" target="_blank" rel="noopener" class="project-link">
+            Guarda il video su YouTube <i class="fas fa-play-circle"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="project-card fade-in" data-category="sviluppo">
         <div class="project-icon code-icon">
           <i class="fas fa-code"></i>
         </div>
@@ -61,51 +148,38 @@
             <span class="tag">Git/GitHub</span>
           </div>
           <p>Progettazione e sviluppo di un sito web responsivo e ottimizzato per esporre i miei scatti e presentare il mio profilo professionale.</p>
-          <a href="https://github.com/An7onio9/Sito" target="_blank" class="project-link">
+          <a href="https://github.com/An7onio9/Sito" target="_blank" rel="noopener" class="project-link">
             Vedi Codice <i class="fab fa-github"></i>
           </a>
         </div>
       </article>
 
-<article class="project-card fade-in">
-  <div class="project-icon video-icon">
-    <i class="fas fa-film"></i>
-  </div>
-  <div class="project-content">
-    <h3>Video Production: Fiera imprese simulate</h3>
-    <div class="tech-tags">
-      <span class="tag">Video Editing</span>
-      <span class="tag">UAS Footage</span>
-      <span class="tag">Fast Delivery</span>
-    </div>
-    <p>Progetto realizzato in 72 per far scoprire il territorio di Gissi nella <strong>XII fiera internazionale delle imprese simulate</strong>. 
-      Ho gestito l'intero processo: dalla pianificazione dalle riprese sul campo alla post-produzione,
-      ottimizzando il montaggio per rispettare il limite temporale imposto della fiera.
-      Il lavoro al termine della giornata ha ricevuto molti feedback positivi.</p>
-    <a href="https://www.youtube.com/watch?v=VzoTzIW2QZ8" target="_blank" class="project-link">
-      Guarda il video <i class="fas fa-play-circle"></i>
-    </a>
-  </div>
-</article>
+      <article class="project-card fade-in" data-category="sviluppo">
+        <div class="project-icon code-icon">
+          <i class="fas fa-calculator"></i>
+        </div>
+        <div class="project-content">
+          <h3>Algoritmo Del Simplesso</h3>
+          <div class="tech-tags">
+            <span class="tag">Script</span>
+            <span class="tag">Programmazione lineare</span>
+          </div>
+          <p>Script che applica l'algoritmo del simplesso per risolvere problemi di programmazione lineare.</p>
+          <a href="script.html" target="_blank" class="project-link">
+            Usa lo script <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+    </section>
 
-<article class="project-card fade-in">
-  <div class="project-icon video-icon">
-    <i class="fas fa-film"></i>
-  </div>
-  <div class="project-content">
-    <h3>Algoritmo Del Simplesso</h3>
-    <div class="tech-tags">
-      <span class="tag">Script</span>
-      <span class="tag"></span>
-      <span class="tag"></span>
-    </div>
-    <p></p>
-    <a href="script.html" target="_blank" class="project-link">
-      Usa lo Script <i class="fas fa-play-circle"></i>
-    </a>
-  </div>
-</article>
-</section>
+    <section class="cta-block">
+      <h3>Hai un progetto in mente?</h3>
+      <p>Guarda i miei lavori o scrivimi per richiedere un lavoro.</p>
+      <div class="cta-buttons">
+        <a class="cta-btn" href="mailto:acostantino2005@gmail.com?subject=Richiesta%20lavoro">Contattami</a>
+        <a class="cta-btn secondary" href="foto.html">Foto e video</a>
+      </div>
+    </section>
 
       <div class="copyright">&copy; 2026 | Antonio Costantino</div>
   </div>
@@ -163,5 +237,31 @@
   </script>
 
  
+
+<script>
+    // --- FILTRI PROGETTI ---
+    (function () {
+      const buttons = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.project-card');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.getAttribute('data-filter');
+          cards.forEach(card => {
+            const categories = (card.getAttribute('data-category') || '').split(' ');
+            const show = filter === 'all' || categories.includes(filter);
+            card.classList.toggle('filter-hidden', !show);
+            if (show) {
+              card.classList.add('visible');
+              card.classList.remove('filter-show');
+              void card.offsetWidth; // riavvia l'animazione
+              card.classList.add('filter-show');
+            }
+          });
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

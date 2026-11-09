@@ -20,7 +20,11 @@ body.loaded #page-content {
 }
 
 .page-header .subtitle {
+  box-sizing: border-box;   /* il padding non fa più sforare la larghezza */
+  width: 100%;
+  max-width: 650px;
   text-align: center;
+  text-wrap: balance;       /* niente parola sola sull'ultima riga */
   margin: 10px auto 0;
 }
 
@@ -147,3 +151,74 @@ body.loaded #page-content {
   .project-content { text-align: center; }
   .tech-tags { justify-content: center; }
 }
+
+/* Il contenuto della card occupa lo spazio rimasto accanto all'icona */
+.project-content { flex: 1; min-width: 0; }
+
+/* Sul touch l'hover resta attaccato dopo il tocco: lo annulliamo */
+@media (hover: none) {
+  .project-card.visible:hover {
+    transform: translateY(0);
+    box-shadow: none;
+    border-color: rgba(79, 140, 255, 0.05);
+  }
+}
+
+@media (max-width: 768px) {
+  .project-content { width: 100%; }
+}
+
+/* --- Invito finale --- */
+.cta-block {
+  text-align: center;
+  padding: 0 20px 70px;
+  margin-top: -40px;
+}
+.cta-block h3 { font-size: 1.8rem; color: #4f8cff; margin: 0 0 10px; }
+.cta-block p { margin: 0 auto 26px; color: rgba(255,255,255,0.7); }
+.cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.cta-btn {
+  display: inline-block; padding: 11px 26px; border-radius: 50px;
+  background: #4f8cff; border: 1px solid #4f8cff; color: #fff;
+  font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.9rem;
+}
+.cta-btn:hover { background: #3a6fd8; border-color: #3a6fd8; color: #fff; }
+.cta-btn.secondary { background: transparent; color: rgba(255,255,255,0.85); border-color: rgba(79,140,255,0.5); }
+.cta-btn.secondary:hover { background: transparent; border-color: #4f8cff; color: #fff; }
+@media (max-width: 600px) { .cta-block h3 { font-size: 1.4rem; } }
+
+/* --- Filtri --- */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 0 -15px;
+}
+.filter-btn {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(79, 140, 255, 0.3);
+  padding: 8px 22px;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.filter-btn:hover { border-color: #4f8cff; color: #fff; }
+.filter-btn.active { background-color: #4f8cff; border-color: #4f8cff; color: #fff; }
+@media (hover: none) {
+  .filter-btn:not(.active):hover { border-color: rgba(79, 140, 255, 0.3); color: rgba(255, 255, 255, 0.7); }
+}
+@media (max-width: 600px) { .filter-btn { padding: 10px 16px; font-size: 0.85rem; } }
+
+/* Card escluse dal filtro: spariscono subito, senza stati intermedi */
+.project-card.filter-hidden { display: none !important; }
+.project-card.filter-show { animation: filterIn 0.4s ease-out; }
+@keyframes filterIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- Più link nella stessa card --- */
+.project-links { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+@media (max-width: 768px) { .project-links { justify-content: center; } }
